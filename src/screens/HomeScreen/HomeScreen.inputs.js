@@ -12,7 +12,7 @@ import {
   selectSteamGames,
 } from "store/home/selectors";
 
-const HomeScreenInputs = ({ children, setIsLeft }) => {
+const HomeScreenInputs = ({ children, setIsLeft = () => null }) => {
   const [setActiveGameIndex, startSteamGame, setIsLoading] = useActions([
     homeActions.setActiveGameIndex,
     homeActions.startSteamGame,

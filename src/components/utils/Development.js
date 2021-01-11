@@ -12,6 +12,10 @@ const Development = ({ children }) => {
     setIsFullScreen(!isFullScreen);
   };
 
+  useEffect(() => {
+    document.title = `Aurora UI - v${process.env.REACT_APP_AURORA_VERSION}`;
+  }, []);
+
   useGamepadButton({
     8: {
       onButtonDown: () => {

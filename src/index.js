@@ -1,21 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import "assets/scss/main.scss";
 import reportWebVitals from "./reportWebVitals";
 
 import { Provider } from "react-redux";
 import configureStore from "store";
-import Renderer from "components/renderer";
-
-import { background } from "assets/styles/colors";
 
 ReactDOM.render(
-  <Renderer background={background}>
-    <Provider store={configureStore()}>
-      <App />
-    </Provider>
-  </Renderer>,
+  // {
+  //   <Renderer background={background}>}
+  <Provider store={configureStore()}>
+    <App />
+  </Provider>,
+  //</Renderer>,
   document.getElementById("root")
 );
 
