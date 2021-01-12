@@ -22,6 +22,12 @@ const HomeScreen = () => {
 
   return (
     <div className="home-screen">
+      <div className="home-screen__background--container">
+        <div className="home-screen__background">
+          <div className="auroral-agrabah" />
+          <div className="auroral-stars"></div>
+        </div>
+      </div>
       <HomeScreenInputs>
         <GameTitle />
         <GameSlider />

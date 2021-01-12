@@ -1,0 +1,19 @@
+.home-screen__background {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+
+  &--container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+  }
+
+  .auroral-stars {
+    transform: translate(-0.5rem);
+  }
+}

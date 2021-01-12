@@ -1,7 +1,8 @@
 @import "./abstracts/variables";
 
-@import "./pages/homescreen/game-slider";
-@import "./pages/homescreen/game-title";
+@import "./dist/auroral.min.css";
+
+@import "./pages/homescreen/index";
 
 @import "./components/game";
 
@@ -9,12 +10,4 @@ body {
   overflow: hidden;
   margin: 0;
   font-family: "Quicksand", sans-serif;
-}
-
-.home-screen {
-  height: 100vh;
-  width: 100vw;
-  background-image: url("file:///D:/Downloads/Download%20wallpaper%203840x2160%20northern%20lights%20night%20night%20sky.jpg");
-  background-size: cover;
-  background-position: center;
 }
