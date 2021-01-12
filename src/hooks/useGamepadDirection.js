@@ -6,7 +6,7 @@ import _debounce from "lodash/debounce";
 
 // in ms
 const spamTimeout = 400;
-const spamInterval = 200;
+const spamInterval = 150;
 
 const useGamepadDirection = (config = {}) => {
   const {
