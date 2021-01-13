@@ -35,7 +35,6 @@ function createWindow() {
   });
 
   win.removeMenu();
-  win.setTitle("Aurora UI - v0.1.4");
   win.maximize();
   win.show();
   //win.setFullScreen(true);

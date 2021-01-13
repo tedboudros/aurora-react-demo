@@ -18,7 +18,7 @@ const HomeScreenInputs = ({
   setIsAButtonDown = () => null,
   setIsBButtonDown = () => null,
 }) => {
-  const [setActiveGameIndex, startSteamGame, setIsLoading] = useActions([
+  const [setActiveGameIndex, , setIsLoading] = useActions([
     homeActions.setActiveGameIndex,
     homeActions.startSteamGame,
     homeActions.setIsHomeLoading,
