@@ -13,7 +13,7 @@ const Development = ({ children }) => {
   };
 
   useEffect(() => {
-    document.title = `Aurora UI - v${process.env.REACT_APP_AURORA_VERSION}`;
+    document.title = `Aurora v${process.env.REACT_APP_AURORA_VERSION}`;
   }, []);
 
   useGamepadButton({

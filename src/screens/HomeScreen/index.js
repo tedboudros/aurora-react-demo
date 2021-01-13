@@ -52,7 +52,7 @@ const HomeScreen = () => {
           <GameTitle />
         </div>
         <div className="d-flex align-items-center">
-          <Button text="options" Icon={IoCog} button="B" className="mr-4" />
+          <Button text="options" Icon={IoCog} button="X" className="mr-4" />
           <Button text="details" Icon={FiList} button="Y" />
         </div>
       </div>
