@@ -4,5 +4,5 @@ const selectNotificationState = (state) => state.notifications;
 
 export const selectNotification = createSelector(
   selectNotificationState,
-  (state) => state.notification
+  (state) => state.notifications
 );

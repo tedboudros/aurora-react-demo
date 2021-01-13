@@ -1,5 +1,5 @@
 import TYPES from "./types";
 
-export const setNotification = (notification) => (dispatch) => {
-  dispatch({ type: TYPES.SET_NOTIFICATION, payload: notification });
+export const pushNotification = (notification) => (dispatch) => {
+  dispatch({ type: TYPES.PUSH_NOTIFICATION, payload: notification });
 };

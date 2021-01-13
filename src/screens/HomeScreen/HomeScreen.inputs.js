@@ -12,7 +12,12 @@ import {
   selectSteamGames,
 } from "store/home/selectors";
 
-const HomeScreenInputs = ({ children, setIsLeft = () => null }) => {
+const HomeScreenInputs = ({
+  children,
+  setIsLeft = () => null,
+  setIsAButtonDown = () => null,
+  setIsBButtonDown = () => null,
+}) => {
   const [setActiveGameIndex, startSteamGame, setIsLoading] = useActions([
     homeActions.setActiveGameIndex,
     homeActions.startSteamGame,
@@ -41,13 +46,24 @@ const HomeScreenInputs = ({ children, setIsLeft = () => null }) => {
     0: {
       onButtonDown: () => {
         const { appId } = games[activeGame];
-        startSteamGame(appId);
+        //startSteamGame(appId);
+        setIsAButtonDown(true);
         setIsLoading(!isLoading);
+      },
+      onButtonUp: () => {
+        setIsAButtonDown(false);
       },
     },
     1: {
+      /*
       onButtonDown: () => {
         setIsLoading(!isLoading);
+      },*/
+      onButtonDown: () => {
+        setIsBButtonDown(true);
+      },
+      onButtonUp: () => {
+        setIsBButtonDown(false);
       },
     },
   });

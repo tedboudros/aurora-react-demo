@@ -1,5 +1,7 @@
 import TYPES from "./types";
 
+import axios from "axios";
+
 const { ipcRenderer } = window.require("electron");
 
 export const setActiveGameIndex = (index) => (dispatch) => {
@@ -11,7 +13,15 @@ export const getSteamGames = () => (dispatch) => {
   console.log("Fetching steam games");
   ipcRenderer.send("getSteamGameList", "");
   ipcRenderer.on("replyWithSteamGameList", (event, gamesList) => {
-    dispatch({ type: TYPES.GET_STEAM_GAMES.FINISH, payload: gamesList });
+    dispatch({
+      type: TYPES.GET_STEAM_GAMES.FINISH,
+      payload: gamesList
+        .map((game) => {
+          const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.appId}/header.jpg`;
+          return { ...game, icon };
+        })
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    });
   });
 };
 

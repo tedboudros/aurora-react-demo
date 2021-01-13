@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import GameTitle from "components/home-page/GameTitle";
 import GameSlider from "components/home-page/GameSlider";
+
+import Button from "components/general/Button";
 
 import * as homeActions from "store/home/actions";
 import useActions from "hooks/useActions";
@@ -11,7 +13,11 @@ import { useSelector } from "react-redux";
 
 import HomeScreenInputs from "./HomeScreen.inputs";
 
+import { IoGameController, IoCog } from "react-icons/io5";
+
 const HomeScreen = () => {
+  const [isAButtonDown, setIsAButtonDown] = useState(false);
+  const [isBButtonDown, setIsBButtonDown] = useState(false);
   const [getSteamGames] = useActions([homeActions.getSteamGames]);
 
   const isLoading = useSelector(selectIsHomeLoading);
@@ -28,7 +34,25 @@ const HomeScreen = () => {
           <div className="auroral-stars"></div>
         </div>
       </div>
-      <HomeScreenInputs>
+      <div className="home-screen__buttons">
+        <Button
+          isPressed={isAButtonDown}
+          text="start"
+          button="A"
+          Icon={IoGameController}
+        />
+        <Button
+          isPressed={isBButtonDown}
+          text="options"
+          Icon={IoCog}
+          button="B"
+          className="ml-2"
+        />
+      </div>
+      <HomeScreenInputs
+        setIsAButtonDown={setIsAButtonDown}
+        setIsBButtonDown={setIsBButtonDown}
+      >
         <GameTitle />
         <GameSlider />
       </HomeScreenInputs>
