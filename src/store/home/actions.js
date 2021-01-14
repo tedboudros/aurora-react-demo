@@ -1,33 +1,34 @@
 import TYPES from "./types";
 
 import axios from "axios";
-
-const { ipcRenderer } = window.require("electron");
+import ipcTypes from "constants/ipcTypes";
+import ipc from "utils/ipc";
 
 export const setActiveGameIndex = (index) => (dispatch) => {
   dispatch({ type: TYPES.SET_HOME_GAME_INDEX, payload: index });
 };
 
-export const getSteamGames = () => (dispatch) => {
+export const getSteamGames = () => async (dispatch) => {
   dispatch({ type: TYPES.GET_STEAM_GAMES.START });
-  console.log("Fetching steam games");
-  ipcRenderer.send("getSteamGameList", "");
-  ipcRenderer.on("replyWithSteamGameList", (event, gamesList) => {
-    dispatch({
-      type: TYPES.GET_STEAM_GAMES.FINISH,
-      payload: gamesList
-        .map((game) => {
-          const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.appId}/header.jpg`;
-          return { ...game, icon };
-        })
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    });
+
+  console.warn("Fetching steam games");
+
+  const ipcResponse = await ipc(ipcTypes.GET_STEAM_GAMES, "");
+
+  dispatch({
+    type: TYPES.GET_STEAM_GAMES.FINISH,
+    payload: ipcResponse.data
+      .map((game) => {
+        const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.appId}/header.jpg`;
+        return { ...game, icon };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name)),
   });
 };
 
-export const startSteamGame = (appId) => (dispatch) => {
+export const startSteamGame = (appId) => async (dispatch) => {
   dispatch({ type: TYPES.START_STEAM_GAME.START, payload: appId });
-  ipcRenderer.send("startSteamGame", appId);
+  await ipc(ipcTypes.START_STEAM_GAME, appId);
   dispatch({ type: TYPES.START_STEAM_GAME.FINISH, payload: appId });
 };
 

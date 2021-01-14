@@ -1,7 +1,7 @@
 {
   "name": "aurora",
   "version": "0.1.0",
-  "main": "public/electron.js",
+  "main": "electron/index.js",
   "homepage": "./",
   "author": "Ted Boudros",
   "description": "Aurora UI",
