@@ -1,6 +1,10 @@
 const fs = require("fs");
 const readline = require("readline");
 const { exec } = require("child_process");
+const {parse} = require('@node-steam/vdf')
+
+const steamBaseDir = "C:/Program Files (x86)/Steam/";
+const steamEncoding = "utf8"
 
 module.exports.getSteamGameListFromDir = (dir) =>
   new Promise((resolve) => {
@@ -12,40 +16,30 @@ module.exports.getSteamGameListFromDir = (dir) =>
     let closedCounter = 0;
 
     gameFiles.forEach((gameFile) => {
-      const appId = gameFile
-        .replace("appmanifest_", "")
-        .replace(".acf", "")
-        .replace(" ", "");
-      let name = "";
-
       const gameACFPath = `${dir}/${gameFile}`;
-      const rl = readline.createInterface({
-        input: fs.createReadStream(gameACFPath),
-      });
 
-      rl.on("line", (line) => {
-        if (line.includes("name")) {
-          name = line.replaceAll('"', "").replace("	name		", "");
+      const file = fs.readFileSync(gameACFPath, steamEncoding);
+      const parsedFile = parse(file)['AppState'];
 
-          const game = {
-            name,
-            appId,
-          };
+      const finalGame = {
+        installDir: dir,
+        appId: parsedFile.appid,
+        ...parsedFile
+      }
 
-          games.push(game);
-        }
-      });
+      games.push(finalGame);
 
-      rl.on("close", () => {
-        closedCounter++;
-
-        if (closedCounter === gameFiles.length) resolve(games);
-      });
+      closedCounter++;
+      if (closedCounter === gameFiles.length) resolve(games);
     });
   });
 
+  module.exports.getSteamLibraryDirectories =  ()=> {
+
+  }
+
 module.exports.startSteamGame = (appId) => {
-  const command = `"C:/Program Files (x86)/Steam/steam.exe" -applaunch ${appId}`;
+  const command = `"${steamBaseDir}/steam.exe" -applaunch ${appId}`;
 
   console.log(`Launching steam game with appId: ${appId}`);
   exec(command, (error, stdout, stderr) => {

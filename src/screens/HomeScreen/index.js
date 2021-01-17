@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 
 import GameTitle from "components/home-page/GameTitle";
 import GameSlider from "components/home-page/game-slider";
 
 import Button from "components/general/Button";
+import Modal from 'components/general/Modal'
 
 import * as homeActions from "store/home/actions";
 import useActions from "hooks/useActions";
@@ -19,6 +20,7 @@ import { IoGameController, IoCog } from "react-icons/io5";
 import { FiList } from "react-icons/fi";
 
 const HomeScreen = () => {
+  const [isDetailsModalOpen, setIsDetailsModalOpen]  = useState(false);
   const [startSteamGame] = useActions([homeActions.startSteamGame]);
 
   const isLoading = useSelector(selectIsHomeLoading);
@@ -53,9 +55,10 @@ const HomeScreen = () => {
         </div>
         <div className="d-flex align-items-center">
           <Button text="options" Icon={IoCog} button="X" className="mr-4" />
-          <Button text="details" Icon={FiList} button="Y" />
+          <Button text="details" Icon={FiList} button="Y" onPress={()  => setIsDetailsModalOpen(true)} />
         </div>
       </div>
+      <Modal isOpen={isDetailsModalOpen} setIsOpen={setIsDetailsModalOpen}>Hello  World!</Modal>
     </div>
   );
 };
