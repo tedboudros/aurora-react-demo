@@ -13,14 +13,16 @@ const DetailsModal = ({ isOpen, setIsOpen }) => {
   const activeContent = config(activeGame);
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      {Object.keys(activeContent).map((key) => {
-        return (
-          <span>
-            {activeContent[key].title}: <b>{activeContent[key].value}</b>
-          </span>
-        );
-      })}
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Game details:"}>
+      <div className="d-flex flex-column align-items-start justify-content-center">
+        {Object.keys(activeContent).map((key) => {
+          return (
+            <span key={key} className={activeContent[key].className || ""}>
+              {activeContent[key].title}: <b>{activeContent[key].value}</b>
+            </span>
+          );
+        })}
+      </div>
     </Modal>
   );
 };
