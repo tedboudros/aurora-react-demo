@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import HomeScreen from "screens/HomeScreen";
+import HomeScreen from "pages/home-screen";
 import { GamepadsProvider } from "contexts/GamepadsContext";
 import Development from "components/utils/Development";
 

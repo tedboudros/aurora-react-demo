@@ -5,7 +5,7 @@ const isDev = require("electron-is-dev");
 
 const ipcFunction = require("./ipc");
 
-let installExtension, REACT_DEVELOPER_TOOLS,  REDUX_DEVTOOLS;
+let installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS;
 
 if (isDev) {
   const devTools = require("electron-devtools-installer");
@@ -54,7 +54,7 @@ app.whenReady().then(() => {
     installExtension(REDUX_DEVTOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((error) => console.log(`An error occurred: , ${error}`));
-      
+
     installExtension(REACT_DEVELOPER_TOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((error) => console.log(`An error occurred: , ${error}`));

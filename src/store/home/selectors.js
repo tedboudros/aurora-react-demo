@@ -7,6 +7,12 @@ export const selectActiveGameIndex = createSelector(
   (state) => state.activeGame
 );
 
+export const selectActiveGame = createSelector(selectHomeState, (state) =>
+  state.steamGames && state.steamGames.length && state.activeGame !== null
+    ? state.steamGames[state.activeGame]
+    : {}
+);
+
 export const selectIsHomeLoading = createSelector(
   selectHomeState,
   (state) => state.isLoading
