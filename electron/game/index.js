@@ -21,7 +21,6 @@ module.exports.getSteamGameListFromDir = (dir) =>
 
       const finalGame = {
         installDir: dir,
-        appId: parsedFile.appid,
         platform: steam.platform,
         ...parsedFile,
       };

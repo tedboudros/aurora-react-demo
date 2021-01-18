@@ -14,7 +14,7 @@ const HomeHeader = () => {
         <img className="home-screen__header--logo" src={logo} />
         <span className="ml-3">aurora</span>
         <span className="ml-1 text-small">
-          v{process.env.REACT_APP_AURORA_VERSION}
+          alpha v{process.env.REACT_APP_AURORA_VERSION}
         </span>
       </div>
       <div className="home-screen__header--time">

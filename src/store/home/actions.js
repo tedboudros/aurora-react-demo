@@ -20,7 +20,7 @@ export const getSteamGames = () => async (dispatch) => {
     type: TYPES.GET_STEAM_GAMES.FINISH,
     payload: ipcResponse.data
       .map((game) => {
-        const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.appId}/header.jpg`;
+        const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.appid}/header.jpg`;
         return { ...game, icon };
       })
       .sort((a, b) => a.name.localeCompare(b.name)),

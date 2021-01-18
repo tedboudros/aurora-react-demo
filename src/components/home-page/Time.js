@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import moment from "moment";
 
-const timeFormat = "hh:mm a";
+const timeFormat = "h:mm a";
 
 const Time = () => {
   const [currentTime, setCurrentTime] = useState(moment());

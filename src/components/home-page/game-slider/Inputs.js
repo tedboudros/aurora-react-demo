@@ -51,8 +51,6 @@ const HomeScreenInputs = ({
   useGamepadButton({
     0: {
       onButtonDown: () => {
-        const { appId } = games[activeGame];
-        //startSteamGame(appId);
         setIsAButtonDown(true);
         setIsLoading(!isLoading);
       },

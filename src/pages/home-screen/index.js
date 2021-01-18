@@ -10,7 +10,7 @@ import useActions from "hooks/useActions";
 
 import {
   selectIsHomeLoading,
-  selectActiveGameIndex,
+  selectActiveGame,
   selectSteamGames,
 } from "store/home/selectors";
 import { useSelector } from "react-redux";
@@ -27,12 +27,12 @@ const HomeScreen = () => {
 
   const isLoading = useSelector(selectIsHomeLoading);
   const games = useSelector(selectSteamGames);
-  const activeGame = useSelector(selectActiveGameIndex);
+  const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
-    const { appId } = games[activeGame];
+    const { appid } = activeGame;
     console.log("down");
-    //startSteamGame(appId);
+    startSteamGame(appid);
   };
 
   return (
