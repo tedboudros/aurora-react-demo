@@ -20,4 +20,8 @@ export default (game) => ({
     className: "text-capitalize",
   },
   platform: { title: "Platform", value: game.platform },
+  installedDrive: {
+    title: "Installed on drive",
+    value: `${game.installDir.split(":")[0]}:`,
+  },
 });

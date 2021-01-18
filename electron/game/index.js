@@ -1,40 +1,74 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 const { exec } = require("child_process");
 const { parse } = require("@node-steam/vdf");
 
 const steam = require("./steamConstants");
 
-module.exports.getSteamGameListFromDir = (dir) =>
-  new Promise((resolve) => {
-    const dirList = fs.readdirSync(dir);
-    const gameFiles = dirList.filter((file) => file.includes(".acf"));
+const isNumeric = (str) => {
+  if (typeof str != "string") return false;
+  return !isNaN(str) && !isNaN(parseFloat(str));
+};
 
+const getSteamLibraryDirectories = () =>
+  new Promise(async (resolve) => {
+    const librariesFile = await fs.readFile(
+      `${steam.baseDir}/steamapps/libraryfolders.vdf`,
+      steam.encoding
+    );
+    const parsedFile = parse(librariesFile)["LibraryFolders"];
+
+    const libraryFolders = [
+      steam.baseDir,
+      ...Object.keys(parsedFile)
+        .filter((key) => isNumeric(key))
+        .map((key) => parsedFile[key]),
+    ].map((dir) => `${dir}/steamapps/`);
+
+    resolve(libraryFolders);
+  });
+
+const getSteamGamesList = () =>
+  new Promise(async (resolve) => {
     let games = [];
 
-    let closedCounter = 0;
+    const libraryFolders = await getSteamLibraryDirectories();
 
-    gameFiles.forEach((gameFile) => {
-      const gameACFPath = `${dir}/${gameFile}`;
+    let libraryFolderCounter = 0;
 
-      const file = fs.readFileSync(gameACFPath, steam.encoding);
-      const parsedFile = parse(file)["AppState"];
+    libraryFolders.forEach(async (libraryFolder) => {
+      libraryFolderCounter++;
 
-      const finalGame = {
-        installDir: dir,
-        platform: steam.platform,
-        ...parsedFile,
-      };
+      const dirList = await fs.readdir(libraryFolder);
+      const gameFiles = dirList.filter((file) => file.includes(".acf"));
 
-      games.push(finalGame);
+      let gameCounter = 0;
 
-      closedCounter++;
-      if (closedCounter === gameFiles.length) resolve(games);
+      gameFiles.forEach(async (gameFile) => {
+        gameCounter++;
+
+        const gameACFPath = `${libraryFolder}/${gameFile}`;
+
+        const file = await fs.readFile(gameACFPath, steam.encoding);
+        const parsedFile = parse(file)["AppState"];
+
+        const finalGame = {
+          installDir: libraryFolder,
+          platform: steam.platform,
+          ...parsedFile,
+        };
+
+        games.push(finalGame);
+
+        if (
+          games.length === gameFiles.length &&
+          libraryFolderCounter === libraryFolders.length
+        )
+          resolve(games);
+      });
     });
   });
 
-module.exports.getSteamLibraryDirectories = () => {};
-
-module.exports.startSteamGame = (appId) => {
+const startSteamGame = (appId) => {
   const command = `"${steam.baseDir}/steam.exe" -applaunch ${appId}`;
 
   console.log(`Launching steam game with appId: ${appId}`);
@@ -46,4 +80,10 @@ module.exports.startSteamGame = (appId) => {
     if (stdout) console.log(`stdout: ${stdout}`);
     if (stderr) console.error(`stderr: ${stderr}`);
   });
+};
+
+module.exports = {
+  startSteamGame,
+  getSteamLibraryDirectories,
+  getSteamGamesList,
 };
