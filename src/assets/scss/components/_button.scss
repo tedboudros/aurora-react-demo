@@ -12,11 +12,13 @@
   text-transform: uppercase;
   font-weight: 400;
   font-size: 16px;
-  transition: 50ms ease-in-out;
+  transition: 16ms ease-in-out;
+  border: 2px solid transparent;
 
   &.pressed {
     transform: scale(0.97);
     box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(0, 0, 0, 0.8);
 
     .button__preview {
       &.bg-green {

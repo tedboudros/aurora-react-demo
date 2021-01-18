@@ -1,10 +1,8 @@
 const fs = require("fs");
-const readline = require("readline");
 const { exec } = require("child_process");
 const { parse } = require("@node-steam/vdf");
 
-const steamBaseDir = "C:/Program Files (x86)/Steam/";
-const steamEncoding = "utf8";
+const steam = require("./steamConstants");
 
 module.exports.getSteamGameListFromDir = (dir) =>
   new Promise((resolve) => {
@@ -18,12 +16,13 @@ module.exports.getSteamGameListFromDir = (dir) =>
     gameFiles.forEach((gameFile) => {
       const gameACFPath = `${dir}/${gameFile}`;
 
-      const file = fs.readFileSync(gameACFPath, steamEncoding);
+      const file = fs.readFileSync(gameACFPath, steam.encoding);
       const parsedFile = parse(file)["AppState"];
 
       const finalGame = {
         installDir: dir,
         appId: parsedFile.appid,
+        platform: steam.platform,
         ...parsedFile,
       };
 
@@ -37,7 +36,7 @@ module.exports.getSteamGameListFromDir = (dir) =>
 module.exports.getSteamLibraryDirectories = () => {};
 
 module.exports.startSteamGame = (appId) => {
-  const command = `"${steamBaseDir}/steam.exe" -applaunch ${appId}`;
+  const command = `"${steam.baseDir}/steam.exe" -applaunch ${appId}`;
 
   console.log(`Launching steam game with appId: ${appId}`);
   exec(command, (error, stdout, stderr) => {

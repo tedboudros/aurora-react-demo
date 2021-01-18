@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 
 import { IoGameController, IoCog } from "react-icons/io5";
 import { FiList } from "react-icons/fi";
+
+import HomeHeader from "./header";
 import DetailsModal from "./details-modal";
 
 const HomeScreen = () => {
@@ -37,10 +39,11 @@ const HomeScreen = () => {
     <div className="home-screen">
       <div className="home-screen__background--container">
         <div className="home-screen__background">
-          <div className="auroral-northern" />
+          <div className="auroral-agrabah" />
           <div className="auroral-stars"></div>
         </div>
       </div>
+      <HomeHeader />
       <GameSlider />
       <div className="home-screen__buttons">
         <div className="d-flex align-items-center">

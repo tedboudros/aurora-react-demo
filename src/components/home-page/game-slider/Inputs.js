@@ -12,12 +12,17 @@ import {
   selectSteamGames,
 } from "store/home/selectors";
 
+import useSound from "use-sound";
+import tap from "assets/sounds/tap.mp3";
+
 const HomeScreenInputs = ({
   children,
   setIsLeft = () => null,
   setIsAButtonDown = () => null,
   setIsBButtonDown = () => null,
 }) => {
+  const [play] = useSound(tap, { sprite: { tap: [0, 120] } });
+
   const [setActiveGameIndex, , setIsLoading] = useActions([
     homeActions.setActiveGameIndex,
     homeActions.startSteamGame,
@@ -34,6 +39,7 @@ const HomeScreenInputs = ({
     setIsLeft(() => value === -1);
     setLocalActiveGame((oldValue) => {
       const newValue = oldValue + value;
+      if (!(newValue < 0 || newValue === games.length)) play({ id: "tap" });
       return !(newValue < 0 || newValue === games.length) ? newValue : oldValue;
     });
   };

@@ -19,4 +19,5 @@ export default (game) => ({
     value: _get(game, "UserConfig.language", null),
     className: "text-capitalize",
   },
+  platform: { title: "Platform", value: game.platform },
 });
