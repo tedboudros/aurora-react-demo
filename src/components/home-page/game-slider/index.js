@@ -20,7 +20,7 @@ const GameSlider = () => {
           style={{ transform: `translateX(-${activeGame * 9.5}rem)` }}
         >
           {games.map((game, i) => (
-            <Game game={game} isActive={i === activeGame} />
+            <Game key={i} game={game} isActive={i === activeGame} />
           ))}
         </div>
       </div>

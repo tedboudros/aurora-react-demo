@@ -1,9 +1,9 @@
 import TYPES from "./types";
 
-import axios from "axios";
+//import axios from "axios";
 import ipc from "utils/ipc";
 
-const ipcTypes = require("constants/ipcTypes");
+import ipcTypes from "constants/ipcTypes";
 
 export const setActiveGameIndex = (index) => (dispatch) => {
   dispatch({ type: TYPES.SET_HOME_GAME_INDEX, payload: index });

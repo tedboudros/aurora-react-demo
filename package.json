@@ -44,7 +44,7 @@
   },
   "scripts": {
     "dev": "concurrently -k \"yarn start\" \"yarn electron\"",
-    "electron": "wait-on tcp:23000 && electron-forge start /m",
+    "electron": "wait-on tcp:23000 && electron-forge start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

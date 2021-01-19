@@ -1,6 +1,7 @@
 const fs = require("fs").promises;
 const { exec } = require("child_process");
 const { parse } = require("@node-steam/vdf");
+const { flatten } = require("lodash");
 
 const steam = require("./steamConstants");
 
@@ -27,46 +28,44 @@ const getSteamLibraryDirectories = () =>
     resolve(libraryFolders);
   });
 
-const getSteamGamesList = () =>
-  new Promise(async (resolve) => {
-    let games = [];
+const getSteamGamesListFromLibrary = async (dir) => {
+  const dirList = await fs.readdir(dir);
+  const gameFiles = dirList.filter((file) => file.includes(".acf"));
 
-    const libraryFolders = await getSteamLibraryDirectories();
+  return gameFiles
+    .map(async (gameFile) => {
+      const gameACFPath = `${dir}/${gameFile}`;
 
-    let libraryFolderCounter = 0;
+      const file = await fs.readFile(gameACFPath, steam.encoding);
+      const parsedFile = parse(file)["AppState"];
 
-    libraryFolders.forEach(async (libraryFolder) => {
-      libraryFolderCounter++;
+      const finalGame = {
+        installDir: dir,
+        platform: steam.platform,
+        ...parsedFile,
+      };
 
-      const dirList = await fs.readdir(libraryFolder);
-      const gameFiles = dirList.filter((file) => file.includes(".acf"));
+      if (!steam.blacklistIds.includes(parsedFile.appid)) return finalGame;
+      return null;
+    })
+    .filter((t) => t);
+};
 
-      let gameCounter = 0;
+const getSteamGamesList = async () => {
+  const libraryFolders = await getSteamLibraryDirectories();
 
-      gameFiles.forEach(async (gameFile) => {
-        gameCounter++;
+  console.log(`Steam library folders detected: [${libraryFolders.join(", ")}]`);
 
-        const gameACFPath = `${libraryFolder}/${gameFile}`;
+  const mappedGamesFromLibraries = await Promise.all(
+    libraryFolders.map(async (dir) => await getSteamGamesListFromLibrary(dir))
+  );
 
-        const file = await fs.readFile(gameACFPath, steam.encoding);
-        const parsedFile = parse(file)["AppState"];
+  const games = await Promise.all(flatten(mappedGamesFromLibraries));
 
-        const finalGame = {
-          installDir: libraryFolder,
-          platform: steam.platform,
-          ...parsedFile,
-        };
+  console.log(`Games found: ${games.length}`);
 
-        games.push(finalGame);
-
-        if (
-          games.length === gameFiles.length &&
-          libraryFolderCounter === libraryFolders.length
-        )
-          resolve(games);
-      });
-    });
-  });
+  return games;
+};
 
 const startSteamGame = (appId) => {
   const command = `"${steam.baseDir}/steam.exe" -applaunch ${appId}`;

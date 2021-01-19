@@ -10,9 +10,11 @@ import config from "./config";
 const DetailsModal = ({ isOpen, setIsOpen }) => {
   const activeGame = useSelector(selectActiveGame);
 
-  const activeContent = config(activeGame);
+  const isActiveGameValid = Object.keys(activeGame).length;
 
-  return (
+  const activeContent = config(isActiveGameValid ? activeGame : null);
+
+  return isActiveGameValid ? (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Details:"}>
       <div className="d-flex flex-column align-items-start justify-content-center">
         {Object.keys(activeContent).map((key) => {
@@ -24,7 +26,7 @@ const DetailsModal = ({ isOpen, setIsOpen }) => {
         })}
       </div>
     </Modal>
-  );
+  ) : null;
 };
 
 export default DetailsModal;
