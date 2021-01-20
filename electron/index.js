@@ -53,11 +53,15 @@ app.whenReady().then(() => {
   if (isDev) {
     installExtension(REDUX_DEVTOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((error) => console.log(`An error occurred: , ${error}`));
+      .catch((error) =>
+        console.log(`An error occurred while adding extension: , ${error}`)
+      );
 
     installExtension(REACT_DEVELOPER_TOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((error) => console.log(`An error occurred: , ${error}`));
+      .catch((error) =>
+        console.log(`An error occurred while adding extension: , ${error}`)
+      );
   }
 });
 

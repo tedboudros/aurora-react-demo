@@ -22,9 +22,6 @@ const Development = ({ children }) => {
         document.location.reload();
       },
     },
-    9: {
-      onButtonDown: toggleFullScreen,
-    },
   });
 
   return children;

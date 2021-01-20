@@ -36,3 +36,8 @@ export const startSteamGame = (appId) => async (dispatch) => {
 export const setIsHomeLoading = (isLoading) => (dispatch) => {
   dispatch({ type: TYPES.SET_HOME_IS_LOADING, payload: isLoading });
 };
+
+export const quitApp = () => async (dispatch) => {
+  dispatch({ type: TYPES.QUIT_APP.START });
+  await ipc(ipcTypes.QUIT_APP);
+};

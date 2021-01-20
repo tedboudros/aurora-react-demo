@@ -20,9 +20,11 @@ import { FiList } from "react-icons/fi";
 
 import HomeHeader from "./header";
 import DetailsModal from "./details-modal";
+import StartMenu from "./start-menu";
 
 const HomeScreen = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [startSteamGame] = useActions([homeActions.startSteamGame]);
 
   const isLoading = useSelector(selectIsHomeLoading);
@@ -31,7 +33,6 @@ const HomeScreen = () => {
 
   const onPressStart = () => {
     const { appid } = activeGame;
-    console.log("down");
     startSteamGame(appid);
   };
 
@@ -57,7 +58,13 @@ const HomeScreen = () => {
           <GameTitle />
         </div>
         <div className="d-flex align-items-center">
-          <Button text="options" Icon={IoCog} button="X" className="mr-4" />
+          <Button
+            text="menu"
+            Icon={IoCog}
+            button="start"
+            className="mr-4"
+            onPress={() => setIsStartMenuOpen(true)}
+          />
           <Button
             text="details"
             Icon={FiList}
@@ -69,6 +76,7 @@ const HomeScreen = () => {
           isOpen={isDetailsModalOpen}
           setIsOpen={setIsDetailsModalOpen}
         />
+        <StartMenu isOpen={isStartMenuOpen} setIsOpen={setIsStartMenuOpen} />
       </div>
     </div>
   );
