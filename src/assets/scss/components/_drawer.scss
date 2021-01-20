@@ -1,0 +1,24 @@
+#drawer-container {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  right: -3rem;
+}
+
+.drawer {
+  height: 100%;
+  padding: 1rem;
+  padding-right: 4rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  box-shadow: -6px 0px 17px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  transition: 0.5s cubic-bezier(0.83, -0.5, 0.48, 0.69);
+
+  &.active {
+    transform: translateX(0);
+    transition: 0.3s ease-in-out;
+  }
+}

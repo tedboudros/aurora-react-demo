@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "components/general/Modal";
+import Drawer from "components/general/Drawer";
 
 import { IoClose } from "react-icons/io5";
 import { FiMinimize } from "react-icons/fi";
@@ -19,9 +19,12 @@ const StartMenu = ({ isOpen, setIsOpen }) => {
   ];
 
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Menu"}>
-      <List items={listItems} />
-    </Modal>
+    <Drawer isOpen={isOpen} setIsOpen={setIsOpen} title={"Menu"}>
+      <div className="d-flex flex-column justify-content-between h-100">
+        <div />
+        <List items={listItems} />
+      </div>
+    </Drawer>
   );
 };
 

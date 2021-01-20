@@ -63,7 +63,7 @@ const HomeScreen = () => {
             Icon={IoCog}
             button="start"
             className="mr-4"
-            onPress={() => setIsStartMenuOpen(true)}
+            onPress={() => setIsStartMenuOpen(!isStartMenuOpen)}
           />
           <Button
             text="details"
