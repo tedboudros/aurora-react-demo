@@ -1,6 +1,5 @@
 .game-title {
   padding: 0.45rem 1.5rem;
-  border-radius: 12px;
   color: $white;
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14);
   backdrop-filter: blur(30px) brightness(0.5);
@@ -10,4 +9,5 @@
   font-weight: 300;
   font-size: 18px;
   height: 3rem;
+  border-radius: $small-border-radius;
 }

@@ -41,3 +41,8 @@ export const quitApp = () => async (dispatch) => {
   dispatch({ type: TYPES.QUIT_APP.START });
   await ipc(ipcTypes.QUIT_APP);
 };
+
+export const toggleFullscreen = () => async (dispatch) => {
+  dispatch({ type: TYPES.TOGGLE_FULLSCREEN.START });
+  await ipc(ipcTypes.TOGGLE_FULLSCREEN);
+};

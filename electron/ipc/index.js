@@ -1,7 +1,7 @@
 const games = require("./games");
 const isDev = require("./isDev");
 
-module.exports = () => {
+module.exports = (win) => {
   games();
-  isDev();
+  isDev(win);
 };

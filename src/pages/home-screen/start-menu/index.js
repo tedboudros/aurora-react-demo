@@ -11,17 +11,19 @@ import useActions from "hooks/useActions";
 import * as homeActions from "store/home/actions";
 
 const StartMenu = ({ isOpen, setIsOpen }) => {
-  const [quitApp] = useActions([homeActions.quitApp]);
+  const [quitApp, toggleFullscreen] = useActions([
+    homeActions.quitApp,
+    homeActions.toggleFullscreen,
+  ]);
 
   const listItems = [
+    { icon: FiMinimize, title: "Toggle fullscreen", onPress: toggleFullscreen },
     { icon: IoClose, title: "Quit aurora", onPress: quitApp },
-    { icon: FiMinimize, title: "Toggle fullscreen" },
   ];
 
   return (
     <Drawer isOpen={isOpen} setIsOpen={setIsOpen} title={"Menu"}>
       <div className="d-flex flex-column justify-content-between h-100">
-        <div />
         <List items={listItems} />
       </div>
     </Drawer>

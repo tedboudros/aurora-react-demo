@@ -34,7 +34,7 @@ function createWindow() {
   win.maximize();
   win.show();
 
-  if (!isDev) win.setFullScreen(true);
+  win.setFullScreen(true);
 
   win.loadURL(
     isDev
@@ -45,6 +45,8 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: "detach" });
   }
+
+  ipcFunction(win);
 }
 
 app.whenReady().then(() => {
@@ -76,5 +78,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-
-ipcFunction();

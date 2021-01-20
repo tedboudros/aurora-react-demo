@@ -12,4 +12,5 @@ module.exports = {
   ...makeType("GET_STEAM_GAMES"),
   ...makeType("GET_IS_DEV"),
   ...makeType("QUIT_APP"),
+  ...makeType("TOGGLE_FULLSCREEN"),
 };

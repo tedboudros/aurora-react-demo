@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import ReactDOM from "react-dom";
 
-const Drawer = ({ children, isOpen }) => {
-  return <div className={`drawer ${isOpen ? "active" : ""}`}>{children}</div>;
+const Drawer = ({ children, isOpen, title }) => {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setActive(isOpen);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setActive(() => isOpen);
+    }, 400);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isOpen]);
+
+  return (
+    <div className={`drawer ${isOpen ? "active" : ""}`}>
+      {title ? <div className="drawer__title">{title}</div> : null}
+      {active ? <div className="drawer__inner">{children}</div> : null}
+    </div>
+  );
 };
 
 const DrawerPortal = (props) => {
@@ -13,4 +35,4 @@ const DrawerPortal = (props) => {
     : null;
 };
 
-export default DrawerPortal;
+export default React.memo(DrawerPortal);

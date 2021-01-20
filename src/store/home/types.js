@@ -6,4 +6,5 @@ export default {
   ...asyncType("START_STEAM_GAME"),
   ...asyncType("GET_STEAM_GAMES"),
   ...asyncType("QUIT_APP"),
+  ...asyncType("TOGGLE_FULLSCREEN"),
 };
