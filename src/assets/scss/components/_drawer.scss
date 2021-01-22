@@ -1,25 +1,42 @@
 #drawer-container {
   position: fixed;
   top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  right: -2.5rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .drawer {
   height: 100%;
   padding: 0 1.5rem;
-  padding-right: 4rem;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(30px);
   box-shadow: -6px 0px 17px rgba(0, 0, 0, 0.15);
   transform: translateX(100%);
-  transition: 0.5s cubic-bezier(0.83, -0.5, 0.48, 0.69);
+  transition: 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 
   &.active {
     transform: translateX(0);
-    transition: 0.3s ease-in-out;
+  }
+
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: none;
+    transition: background 0.2s ease-in-out;
+
+    &.active {
+      backdrop-filter: blur(2px);
+      background-color: rgba(0, 0, 0, 0.3);
+    }
   }
 
   &__title {

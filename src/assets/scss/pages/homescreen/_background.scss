@@ -13,6 +13,11 @@
     left: 0;
   }
 
+  background-image: url("/assets/jpg/background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   .auroral-stars {
     transform: translate(-0.5rem);
   }

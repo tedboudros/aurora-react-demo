@@ -9,9 +9,9 @@ import * as homeActions from "store/home/actions";
 import useActions from "hooks/useActions";
 
 import {
-  selectIsHomeLoading,
+  //selectIsHomeLoading,
   selectActiveGame,
-  selectSteamGames,
+  //selectSteamGames,
 } from "store/home/selectors";
 import { useSelector } from "react-redux";
 
@@ -22,13 +22,15 @@ import HomeHeader from "./header";
 import DetailsModal from "./details-modal";
 import StartMenu from "./start-menu";
 
+import useGamepadButton from "hooks/useGamepadButton";
+
 const HomeScreen = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [startSteamGame] = useActions([homeActions.startSteamGame]);
 
-  const isLoading = useSelector(selectIsHomeLoading);
-  const games = useSelector(selectSteamGames);
+  //const isLoading = useSelector(selectIsHomeLoading);
+  //const games = useSelector(selectSteamGames);
   const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
@@ -36,11 +38,20 @@ const HomeScreen = () => {
     startSteamGame(appid);
   };
 
+  useGamepadButton(
+    {
+      1: {
+        onButtonDown: () => setIsStartMenuOpen(() => false),
+      },
+    },
+    "drawer"
+  );
+
   return (
     <div className="home-screen">
       <div className="home-screen__background--container">
         <div className="home-screen__background">
-          <div className="auroral-northern-intense" />
+          <div className="auroral-northen" />
           <div className="auroral-stars"></div>
         </div>
       </div>
@@ -64,6 +75,7 @@ const HomeScreen = () => {
             button="start"
             className="mr-4"
             onPress={() => setIsStartMenuOpen(!isStartMenuOpen)}
+            behaviour="always"
           />
           <Button
             text="details"

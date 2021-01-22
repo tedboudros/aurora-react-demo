@@ -12,6 +12,9 @@ module.exports = (win) => {
   });
 
   ipcMain.on(ipcTypes.TOGGLE_FULLSCREEN.REQ, (event, arg) => {
-    win.setFullScreen(!win.isFullScreen());
+    const isFullscreen = win.isFullScreen();
+
+    win.setFullScreen(!isFullscreen);
+    win.setAlwaysOnTop(!isFullscreen, "normal");
   });
 };

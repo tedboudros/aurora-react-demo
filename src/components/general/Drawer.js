@@ -2,17 +2,24 @@ import React, { useState, useEffect } from "react";
 
 import ReactDOM from "react-dom";
 
+import { useSelector } from "react-redux";
+import { selectIsDrawerOpen } from "store/drawer/selectors";
+
+import useActions from "hooks/useActions";
+import * as drawerActions from "store/drawer/actions";
+
 const Drawer = ({ children, isOpen, title }) => {
-  const [active, setActive] = useState(false);
+  const [setIsDrawerOpen] = useActions([drawerActions.setIsDrawerOpen]);
+  const isDrawerOpen = useSelector(selectIsDrawerOpen);
 
   useEffect(() => {
     if (isOpen) {
-      setActive(isOpen);
+      setIsDrawerOpen(isOpen);
       return;
     }
 
     const timeout = setTimeout(() => {
-      setActive(() => isOpen);
+      setIsDrawerOpen(isOpen);
     }, 400);
 
     return () => {
@@ -21,10 +28,13 @@ const Drawer = ({ children, isOpen, title }) => {
   }, [isOpen]);
 
   return (
-    <div className={`drawer ${isOpen ? "active" : ""}`}>
-      {title ? <div className="drawer__title">{title}</div> : null}
-      {active ? <div className="drawer__inner">{children}</div> : null}
-    </div>
+    <>
+      <div className={`drawer__backdrop ${isOpen ? "active" : ""}`} />
+      <div className={`drawer ${isOpen ? "active" : ""}`}>
+        {title ? <div className="drawer__title">{title}</div> : null}
+        {isDrawerOpen ? <div className="drawer__inner">{children}</div> : null}
+      </div>
+    </>
   );
 };
 

@@ -5,23 +5,32 @@ import { GamepadsContext } from "contexts/GamepadsContext";
 
 import usePrevious from "hooks/usePrevious";
 
-const useGamepadButton = (config) => {
+import { useSelector } from "react-redux";
+import { selectIsDrawerOpen } from "store/drawer/selectors";
+
+import { shouldRegister } from "utils/gamepadBehaviour";
+
+const useGamepadButton = (config, behaviour) => {
   const {
     gamepads: { buttons },
   } = useContext(GamepadsContext);
   const previousButtonsState = usePrevious(buttons);
 
+  const isDrawerOpen = useSelector(selectIsDrawerOpen);
+
   useEffect(() => {
     if (!_isEqual(buttons, previousButtonsState) && buttons) {
       Object.keys(buttons).forEach((button, i) => {
+        const isClickable = shouldRegister(behaviour, button, isDrawerOpen);
+
         const buttonValue = isButtonPressed(buttons, button);
         const prevButtonValue = isButtonPressed(previousButtonsState, button);
 
         if (buttonValue === true && prevButtonValue === false) {
-          if (config[button] && config[button].onButtonDown)
+          if (config[button] && config[button].onButtonDown && isClickable)
             config[button].onButtonDown();
         } else if (buttonValue === false && prevButtonValue === true) {
-          if (config[button] && config[button].onButtonUp)
+          if (config[button] && config[button].onButtonUp && isClickable)
             config[button].onButtonUp();
         }
       });

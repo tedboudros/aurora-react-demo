@@ -24,7 +24,7 @@ const StartMenu = ({ isOpen, setIsOpen }) => {
   return (
     <Drawer isOpen={isOpen} setIsOpen={setIsOpen} title={"Menu"}>
       <div className="d-flex flex-column justify-content-between h-100">
-        <List items={listItems} />
+        <List items={listItems} behaviour="drawer" />
       </div>
     </Drawer>
   );

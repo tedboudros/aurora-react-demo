@@ -4,11 +4,16 @@ import usePrevious from "hooks/usePrevious";
 import _isEqual from "lodash/isEqual";
 import _debounce from "lodash/debounce";
 
+import { useSelector } from "react-redux";
+import { selectIsDrawerOpen } from "store/drawer/selectors";
+
+import { shouldRegister } from "utils/gamepadBehaviour";
+
 // in ms
 const spamTimeout = 400;
 const spamInterval = 150;
 
-const useGamepadDirection = (config = {}) => {
+const useGamepadDirection = (config = {}, behaviour) => {
   const {
     gamepads: { axes },
   } = useContext(GamepadsContext);
@@ -16,6 +21,8 @@ const useGamepadDirection = (config = {}) => {
 
   const currentSpam = useRef();
   const currentTimeout = useRef();
+
+  const isDrawerOpen = useSelector(selectIsDrawerOpen);
 
   const setSpam = (func) => {
     currentTimeout.current = setTimeout(() => {
@@ -46,34 +53,47 @@ const useGamepadDirection = (config = {}) => {
     ) {
       axes.forEach((axis, i) => {
         const prevValue = previousAxesState[i];
+        const isRegistered = shouldRegister(
+          behaviour,
+          `axes${i}`,
+          isDrawerOpen
+        );
 
-        if (axis.positiveValue === true && prevValue.positiveValue === false) {
-          //Positive in
-          const functionName = `on${axis.type.positiveType}`;
-          if (config[functionName]) config[functionName]();
-          setSpam(config[`on${axis.type.positiveType}`]);
-        } else if (
-          axis.positiveValue === false &&
-          prevValue.positiveValue === true
-        ) {
-          //Positive out
-          const functionName = `on${axis.type.positiveType}Leave`;
-          if (config[functionName]) config[functionName]();
-          stopSpam();
-        }
-        if (axis.negativeValue === true && prevValue.negativeValue === false) {
-          //Negative in
-          const functionName = `on${axis.type.negativeType}`;
-          if (config[functionName]) config[functionName]();
-          setSpam(config[`on${axis.type.negativeType}`]);
-        } else if (
-          axis.negativeValue === false &&
-          prevValue.negativeValue === true
-        ) {
-          //Negative out
-          const functionName = `on${axis.type.negativeType}Leave`;
-          if (config[functionName]) config[functionName]();
-          stopSpam();
+        if (isRegistered) {
+          if (
+            axis.positiveValue === true &&
+            prevValue.positiveValue === false
+          ) {
+            //Positive in
+            const functionName = `on${axis.type.positiveType}`;
+            if (config[functionName]) config[functionName]();
+            setSpam(config[`on${axis.type.positiveType}`]);
+          } else if (
+            axis.positiveValue === false &&
+            prevValue.positiveValue === true
+          ) {
+            //Positive out
+            const functionName = `on${axis.type.positiveType}Leave`;
+            if (config[functionName]) config[functionName]();
+            stopSpam();
+          }
+          if (
+            axis.negativeValue === true &&
+            prevValue.negativeValue === false
+          ) {
+            //Negative in
+            const functionName = `on${axis.type.negativeType}`;
+            if (config[functionName]) config[functionName]();
+            setSpam(config[`on${axis.type.negativeType}`]);
+          } else if (
+            axis.negativeValue === false &&
+            prevValue.negativeValue === true
+          ) {
+            //Negative out
+            const functionName = `on${axis.type.negativeType}Leave`;
+            if (config[functionName]) config[functionName]();
+            stopSpam();
+          }
         }
       });
     }

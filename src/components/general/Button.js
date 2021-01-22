@@ -3,22 +3,25 @@ import React, { useState } from "react";
 import buttons from "constants/buttons";
 import useGamepadButton from "hooks/useGamepadButton";
 
-const Button = ({ text, className, onPress, Icon, button }) => {
+const Button = ({ text, className, onPress, Icon, button, behaviour }) => {
   const [isButtonDown, setIsButtonDown] = useState(false);
 
   const buttonInfo = buttons[button];
 
-  useGamepadButton({
-    [buttonInfo.buttonIndex]: {
-      onButtonDown: () => {
-        setIsButtonDown(true);
-        if (onPress) onPress();
-      },
-      onButtonUp: () => {
-        setIsButtonDown(false);
+  useGamepadButton(
+    {
+      [buttonInfo.buttonIndex]: {
+        onButtonDown: () => {
+          setIsButtonDown(true);
+          if (onPress) onPress();
+        },
+        onButtonUp: () => {
+          setIsButtonDown(false);
+        },
       },
     },
-  });
+    behaviour
+  );
 
   return (
     <div className={`button ${className}  ${isButtonDown ? "pressed" : ""}`}>
