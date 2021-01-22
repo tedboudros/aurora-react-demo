@@ -13,4 +13,5 @@ module.exports = {
   ...makeType("GET_IS_DEV"),
   ...makeType("QUIT_APP"),
   ...makeType("TOGGLE_FULLSCREEN"),
+  ...makeType("CHECK_IF_GAME_IS_RUNNING"),
 };

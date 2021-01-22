@@ -1,7 +1,11 @@
 const fs = require("fs").promises;
 const { exec } = require("child_process");
 const { parse } = require("@node-steam/vdf");
-const { flatten } = require("lodash");
+const flatten = require("lodash/flatten");
+const find = require("find-process");
+const path = require("path");
+
+const searchForFile = require("../utils/searchFile");
 
 const steam = require("./steamConstants");
 
@@ -39,8 +43,14 @@ const getSteamGamesListFromLibrary = async (dir) => {
       const file = await fs.readFile(gameACFPath, steam.encoding);
       const parsedFile = parse(file)["AppState"];
 
+      const gameDirectory = `${dir}/common/${parsedFile.installdir}`;
+
+      const gameExecutables = await searchForFile(`${gameDirectory}/**/*.exe`);
+
       const finalGame = {
-        installDir: dir,
+        steamGamesDir: dir,
+        gameDirectory,
+        gameExecutables,
         platform: steam.platform,
         ...parsedFile,
       };
@@ -81,8 +91,24 @@ const startSteamGame = (appId) => {
   });
 };
 
+const checkIfGameIsRunning = async (gameExecutables) => {
+  const processesArray = await Promise.all(
+    gameExecutables.map(async (gameExecutable) => {
+      const gameFile = path.basename(gameExecutable);
+      console.log(`Searching for file: ${gameFile}`);
+
+      return await find("name", gameFile, false);
+    })
+  );
+
+  const processes = flatten(processesArray);
+
+  return processes.length > 0;
+};
+
 module.exports = {
   startSteamGame,
   getSteamLibraryDirectories,
   getSteamGamesList,
+  checkIfGameIsRunning,
 };

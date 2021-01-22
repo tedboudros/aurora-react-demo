@@ -9,7 +9,7 @@ import * as homeActions from "store/home/actions";
 import useActions from "hooks/useActions";
 
 import {
-  //selectIsHomeLoading,
+  selectIsHomeLoading,
   selectActiveGame,
   //selectSteamGames,
 } from "store/home/selectors";
@@ -24,18 +24,35 @@ import StartMenu from "./start-menu";
 
 import useGamepadButton from "hooks/useGamepadButton";
 
+import Loader from "components/general/Loader";
+
 const HomeScreen = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
+  const [isGameLoading, setIsGameLoading] = useState(false);
   const [startSteamGame] = useActions([homeActions.startSteamGame]);
 
-  //const isLoading = useSelector(selectIsHomeLoading);
+  const isLoadingGames = useSelector(selectIsHomeLoading);
   //const games = useSelector(selectSteamGames);
   const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
     const { appid } = activeGame;
     startSteamGame(appid);
+    setIsGameLoading(true);
+
+    const interval = setInterval(async () => {
+      const isRunning = await homeActions.checkIfGameIsRunning(
+        activeGame.gameExecutables
+      );
+
+      if (isRunning) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsGameLoading(() => false);
+        }, 5000);
+      }
+    }, 1000);
   };
 
   useGamepadButton(
@@ -47,11 +64,15 @@ const HomeScreen = () => {
     "drawer"
   );
 
+  console.log(isLoadingGames, isGameLoading);
+  const isLoading = isLoadingGames || isGameLoading;
+
   return (
     <div className="home-screen">
+      <Loader isLoading={isLoading} />
       <div className="home-screen__background--container">
         <div className="home-screen__background">
-          <div className="auroral-northen" />
+          <div className="auroral-agrah" />
           <div className="auroral-stars"></div>
         </div>
       </div>

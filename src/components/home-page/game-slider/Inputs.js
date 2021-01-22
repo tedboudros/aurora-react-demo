@@ -23,15 +23,9 @@ const HomeScreenInputs = ({
 }) => {
   const [play] = useSound(tap, { sprite: { tap: [0, 120] } });
 
-  const [setActiveGameIndex, , setIsLoading] = useActions([
-    homeActions.setActiveGameIndex,
-    homeActions.startSteamGame,
-    homeActions.setIsHomeLoading,
-  ]);
+  const [setActiveGameIndex] = useActions([homeActions.setActiveGameIndex]);
 
-  const isLoading = useSelector(selectIsHomeLoading);
   const games = useSelector(selectSteamGames);
-  const activeGame = useSelector(selectActiveGameIndex);
 
   const [localActiveGame, setLocalActiveGame] = useState(0);
 
@@ -52,7 +46,6 @@ const HomeScreenInputs = ({
     0: {
       onButtonDown: () => {
         setIsAButtonDown(true);
-        setIsLoading(!isLoading);
       },
       onButtonUp: () => {
         setIsAButtonDown(false);
