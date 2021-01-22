@@ -35,7 +35,7 @@ function createWindow() {
   win.show();
 
   win.setFullScreen(true);
-  win.setAlwaysOnTop(true, "normal");
+  //win.setAlwaysOnTop(true, "normal");
   win.loadURL(
     isDev
       ? "http://localhost:23000"

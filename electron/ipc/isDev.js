@@ -15,6 +15,6 @@ module.exports = (win) => {
     const isFullscreen = win.isFullScreen();
 
     win.setFullScreen(!isFullscreen);
-    win.setAlwaysOnTop(!isFullscreen, "normal");
+    //win.setAlwaysOnTop(!isFullscreen, "normal");
   });
 };
