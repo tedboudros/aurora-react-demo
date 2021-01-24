@@ -28,5 +28,5 @@ export const shouldRegister = (behaviour, button, isDrawerOpen, isLoading) => {
     isValid = shouldRegisterIndividual(behaviour, isDrawerOpen, isLoading);
   }
 
-  return !isLoading || isValid;
+  return isLoading ? false : isValid;
 };

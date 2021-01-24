@@ -88,7 +88,8 @@
     "forge": {
       "packagerConfig": {
         "name": "Aurora",
-        "asar": true
+        "asar": true,
+        "icon": "src/assets/icon/logo"
       },
       "makers": [
         {
