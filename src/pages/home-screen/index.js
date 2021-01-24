@@ -33,7 +33,6 @@ const HomeScreen = () => {
   const [startSteamGame] = useActions([homeActions.startSteamGame]);
 
   const isLoadingGames = useSelector(selectIsHomeLoading);
-  //const games = useSelector(selectSteamGames);
   const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
@@ -55,16 +54,6 @@ const HomeScreen = () => {
     }, 5000);
   };
 
-  useGamepadButton(
-    {
-      1: {
-        onButtonDown: () => setIsStartMenuOpen(() => false),
-      },
-    },
-    "drawer"
-  );
-
-  console.log(isLoadingGames, isGameLoading);
   const isLoading = isLoadingGames || isGameLoading;
 
   return (
@@ -96,7 +85,6 @@ const HomeScreen = () => {
             button="start"
             className="mr-4"
             onPress={() => setIsStartMenuOpen(!isStartMenuOpen)}
-            behaviour="always"
           />
           <Button
             text="details"

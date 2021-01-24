@@ -1,13 +1,3 @@
-#drawer-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: flex-end;
-}
-
 .drawer {
   height: 100%;
   padding: 0 1.5rem;
@@ -19,6 +9,17 @@
   display: flex;
   flex-direction: column;
   z-index: 2;
+  color: $white;
+
+  &__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+  }
 
   &.active {
     transform: translateX(0);

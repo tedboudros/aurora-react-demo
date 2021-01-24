@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import ReactDOM from "react-dom";
+import useGamepadButton from "hooks/useGamepadButton";
 
 import { useSelector } from "react-redux";
 import { selectIsDrawerOpen } from "store/drawer/selectors";
@@ -8,9 +8,18 @@ import { selectIsDrawerOpen } from "store/drawer/selectors";
 import useActions from "hooks/useActions";
 import * as drawerActions from "store/drawer/actions";
 
-const Drawer = ({ children, isOpen, title }) => {
+const Drawer = ({ children, isOpen, setIsOpen, title }) => {
   const [setIsDrawerOpen] = useActions([drawerActions.setIsDrawerOpen]);
   const isDrawerOpen = useSelector(selectIsDrawerOpen);
+
+  useGamepadButton(
+    {
+      1: {
+        onButtonDown: () => setIsOpen(() => false),
+      },
+    },
+    "drawer"
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -28,21 +37,14 @@ const Drawer = ({ children, isOpen, title }) => {
   }, [isOpen]);
 
   return (
-    <>
+    <div className="drawer__container">
       <div className={`drawer__backdrop ${isOpen ? "active" : ""}`} />
       <div className={`drawer ${isOpen ? "active" : ""}`}>
         {title ? <div className="drawer__title">{title}</div> : null}
         {isDrawerOpen ? <div className="drawer__inner">{children}</div> : null}
       </div>
-    </>
+    </div>
   );
 };
 
-const DrawerPortal = (props) => {
-  const domContainer = document.getElementById("drawer-container");
-  return domContainer
-    ? ReactDOM.createPortal(<Drawer {...props} />, domContainer)
-    : null;
-};
-
-export default React.memo(DrawerPortal);
+export default React.memo(Drawer);

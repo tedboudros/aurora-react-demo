@@ -19,7 +19,6 @@ const App = () => {
       <Development>
         <HomeScreen />
       </Development>
-      <div id="drawer-container" />
     </GamepadsProvider>
   );
 };

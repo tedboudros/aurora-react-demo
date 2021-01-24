@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "components/general/Modal";
+import Drawer from "components/general/Drawer";
 
 import { selectActiveGame } from "store/home/selectors";
 import { useSelector } from "react-redux";
@@ -15,7 +15,7 @@ const DetailsModal = ({ isOpen, setIsOpen }) => {
   const activeContent = config(isActiveGameValid ? activeGame : null);
 
   return isActiveGameValid ? (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Details:"}>
+    <Drawer isOpen={isOpen} setIsOpen={setIsOpen} title={"Details:"}>
       <div className="d-flex flex-column align-items-start justify-content-center">
         {Object.keys(activeContent).map((key) => {
           return activeContent[key].value ? (
@@ -25,7 +25,7 @@ const DetailsModal = ({ isOpen, setIsOpen }) => {
           ) : null;
         })}
       </div>
-    </Modal>
+    </Drawer>
   ) : null;
 };
 
