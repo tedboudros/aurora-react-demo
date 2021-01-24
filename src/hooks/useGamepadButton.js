@@ -26,11 +26,13 @@ const useGamepadButton = (config, behaviour) => {
         const buttonValue = isButtonPressed(buttons, button);
         const prevButtonValue = isButtonPressed(previousButtonsState, button);
 
-        if (buttonValue === true && prevButtonValue === false) {
-          if (config[button] && config[button].onButtonDown && isClickable)
+        if (buttonValue === true && prevButtonValue === false && isClickable) {
+          if (config[button] && config[button].onButtonDown)
             config[button].onButtonDown();
-        } else if (buttonValue === false && prevButtonValue === true) {
-          if (config[button] && config[button].onButtonUp && isClickable)
+        }
+
+        if (buttonValue === false && prevButtonValue === true) {
+          if (config[button] && config[button].onButtonUp)
             config[button].onButtonUp();
         }
       });
