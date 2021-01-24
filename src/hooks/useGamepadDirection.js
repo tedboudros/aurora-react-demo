@@ -59,41 +59,41 @@ const useGamepadDirection = (config = {}, behaviour) => {
           isDrawerOpen
         );
 
-        if (isRegistered) {
-          if (
-            axis.positiveValue === true &&
-            prevValue.positiveValue === false
-          ) {
-            //Positive in
-            const functionName = `on${axis.type.positiveType}`;
-            if (config[functionName]) config[functionName]();
-            setSpam(config[`on${axis.type.positiveType}`]);
-          } else if (
-            axis.positiveValue === false &&
-            prevValue.positiveValue === true
-          ) {
-            //Positive out
-            const functionName = `on${axis.type.positiveType}Leave`;
-            if (config[functionName]) config[functionName]();
-            stopSpam();
-          }
-          if (
-            axis.negativeValue === true &&
-            prevValue.negativeValue === false
-          ) {
-            //Negative in
-            const functionName = `on${axis.type.negativeType}`;
-            if (config[functionName]) config[functionName]();
-            setSpam(config[`on${axis.type.negativeType}`]);
-          } else if (
-            axis.negativeValue === false &&
-            prevValue.negativeValue === true
-          ) {
-            //Negative out
-            const functionName = `on${axis.type.negativeType}Leave`;
-            if (config[functionName]) config[functionName]();
-            stopSpam();
-          }
+        if (
+          axis.positiveValue === true &&
+          prevValue.positiveValue === false &&
+          isRegistered
+        ) {
+          //Positive in
+          const functionName = `on${axis.type.positiveType}`;
+          if (config[functionName]) config[functionName]();
+          setSpam(config[`on${axis.type.positiveType}`]);
+        } else if (
+          axis.positiveValue === false &&
+          prevValue.positiveValue === true
+        ) {
+          //Positive out
+          const functionName = `on${axis.type.positiveType}Leave`;
+          if (config[functionName]) config[functionName]();
+          stopSpam();
+        }
+        if (
+          axis.negativeValue === true &&
+          prevValue.negativeValue === false &&
+          isRegistered
+        ) {
+          //Negative in
+          const functionName = `on${axis.type.negativeType}`;
+          if (config[functionName]) config[functionName]();
+          setSpam(config[`on${axis.type.negativeType}`]);
+        } else if (
+          axis.negativeValue === false &&
+          prevValue.negativeValue === true
+        ) {
+          //Negative out
+          const functionName = `on${axis.type.negativeType}Leave`;
+          if (config[functionName]) config[functionName]();
+          stopSpam();
         }
       });
     }
