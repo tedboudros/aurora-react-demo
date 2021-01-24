@@ -87,7 +87,8 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "name": "Aurora"
+        "name": "Aurora",
+        "asar": true
       },
       "makers": [
         {

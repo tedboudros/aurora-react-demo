@@ -14,11 +14,19 @@ export const shouldRegisterIndividual = (behaviour, isDrawerOpen) => {
   }
 };
 
-export const shouldRegister = (behaviour, button, isDrawerOpen) => {
+export const shouldRegister = (behaviour, button, isDrawerOpen, isLoading) => {
+  let isValid;
+
   if (_isObject(behaviour) && button) {
     if (_get(behaviour, button))
-      return shouldRegisterIndividual(behaviour[button], isDrawerOpen);
+      isValid = shouldRegisterIndividual(
+        behaviour[button],
+        isDrawerOpen,
+        isLoading
+      );
   } else {
-    return shouldRegisterIndividual(behaviour, isDrawerOpen);
+    isValid = shouldRegisterIndividual(behaviour, isDrawerOpen, isLoading);
   }
+
+  return !isLoading || isValid;
 };

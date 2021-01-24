@@ -50,8 +50,6 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  createWindow();
-
   if (isDev) {
     installExtension(REDUX_DEVTOOLS)
       .then((name) => console.log(`Added Extension:  ${name}`))
@@ -65,12 +63,12 @@ app.whenReady().then(() => {
         console.log(`An error occurred while adding extension: , ${error}`)
       );
   }
+
+  createWindow();
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  app.quit();
 });
 
 app.on("activate", () => {

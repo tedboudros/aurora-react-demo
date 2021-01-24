@@ -52,7 +52,7 @@ const HomeScreen = () => {
           setIsGameLoading(() => false);
         }, 5000);
       }
-    }, 1000);
+    }, 5000);
   };
 
   useGamepadButton(
@@ -72,7 +72,7 @@ const HomeScreen = () => {
       <Loader isLoading={isLoading} />
       <div className="home-screen__background--container">
         <div className="home-screen__background">
-          <div className="auroral-agrah" />
+          <div className="auroral-agraba" />
           <div className="auroral-stars"></div>
         </div>
       </div>

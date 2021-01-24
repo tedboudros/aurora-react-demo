@@ -6,6 +6,7 @@ const find = require("find-process");
 const path = require("path");
 
 const searchForFile = require("../utils/searchFile");
+const filterGameFiles = require("../utils/filterGameFiles");
 
 const steam = require("./steamConstants");
 
@@ -47,10 +48,12 @@ const getSteamGamesListFromLibrary = async (dir) => {
 
       const gameExecutables = await searchForFile(`${gameDirectory}/**/*.exe`);
 
+      const filteredGameExecutables = filterGameFiles(gameExecutables);
+
       const finalGame = {
         steamGamesDir: dir,
         gameDirectory,
-        gameExecutables,
+        gameExecutables: filteredGameExecutables,
         platform: steam.platform,
         ...parsedFile,
       };
