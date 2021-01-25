@@ -4,6 +4,7 @@ const { app, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
 
 const ipcFunction = require("./ipc");
+const initDB = require("./db/init");
 
 let installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS;
 
@@ -18,7 +19,7 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-function createWindow() {
+const createWindow = async () => {
   const win = new BrowserWindow({
     width: 1280,
     height: 720,
@@ -47,7 +48,9 @@ function createWindow() {
   }
 
   ipcFunction(win);
-}
+
+  const db = await initDB();
+};
 
 app.whenReady().then(() => {
   if (isDev) {
