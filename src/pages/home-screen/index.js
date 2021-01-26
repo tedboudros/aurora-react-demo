@@ -42,7 +42,7 @@ const HomeScreen = () => {
 
     const interval = setInterval(async () => {
       const isRunning = await homeActions.checkIfGameIsRunning(
-        activeGame.gameExecutables
+        activeGame.executables
       );
 
       if (isRunning) {

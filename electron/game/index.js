@@ -46,14 +46,13 @@ const getSteamGamesListFromLibrary = async (dir) => {
 
       const gameDirectory = `${dir}/common/${parsedFile.installdir}`;
 
-      const gameExecutables = await searchForFile(`${gameDirectory}/**/*.exe`);
+      const executables = await searchForFile(`${gameDirectory}/**/*.exe`);
 
-      const filteredGameExecutables = filterGameFiles(gameExecutables);
+      const filteredExecutables = filterGameFiles(executables);
 
       const finalGame = {
-        steamGamesDir: dir,
-        gameDirectory,
-        gameExecutables: filteredGameExecutables,
+        appDir: gameDirectory,
+        executables: filteredExecutables,
         platform: steam.platform,
         ...parsedFile,
       };
@@ -94,9 +93,9 @@ const startSteamGame = (appId) => {
   });
 };
 
-const checkIfGameIsRunning = async (gameExecutables) => {
+const checkIfGameIsRunning = async (executables) => {
   const processesArray = await Promise.all(
-    gameExecutables.map(async (gameExecutable) => {
+    executables.map(async (gameExecutable) => {
       const gameFile = path.basename(gameExecutable);
       console.log(`Searching for file: ${gameFile}`);
 

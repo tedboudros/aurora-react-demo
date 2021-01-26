@@ -25,7 +25,7 @@ export default (game) => {
     platform: { title: "Platform", value: game.platform },
     installedDrive: {
       title: "Installed on drive",
-      value: `${_get(game, "steamGamesDir", "").split(":")[0]}:`,
+      value: `${_get(game, "appDir", "").split(":")[0]}:`,
     },
   };
 };

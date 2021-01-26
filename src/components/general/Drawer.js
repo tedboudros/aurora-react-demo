@@ -22,18 +22,7 @@ const Drawer = ({ children, isOpen, setIsOpen, title }) => {
   );
 
   useEffect(() => {
-    if (isOpen) {
-      setIsDrawerOpen(isOpen);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setIsDrawerOpen(isOpen);
-    }, 400);
-
-    return () => {
-      clearTimeout(timeout);
-    };
+    setIsDrawerOpen(isOpen);
   }, [isOpen]);
 
   return (
@@ -41,7 +30,7 @@ const Drawer = ({ children, isOpen, setIsOpen, title }) => {
       <div className={`drawer__backdrop ${isOpen ? "active" : ""}`} />
       <div className={`drawer ${isOpen ? "active" : ""}`}>
         {title ? <div className="drawer__title">{title}</div> : null}
-        {isDrawerOpen ? <div className="drawer__inner">{children}</div> : null}
+        <div className="drawer__inner">{children}</div>
       </div>
     </div>
   );

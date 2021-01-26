@@ -7,7 +7,7 @@ const saveDB = async (db) => {
   const filePath = `${homeDir}/Documents/aurora.db`;
 
   const data = db.export();
-  const buffer = new Buffer(data);
+  const buffer = new Buffer.from(data);
   await fs.writeFile(filePath, buffer);
 };
 

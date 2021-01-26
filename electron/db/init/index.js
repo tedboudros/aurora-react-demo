@@ -1,7 +1,8 @@
 const initSqlJs = require("sql.js");
 const fs = require("fs").promises;
 
-const getHomeDir = require("../utils/getHomeDir");
+const initializeTables = require("./initializeTables");
+const getHomeDir = require("../../utils/getHomeDir");
 
 const initialize = async () => {
   let SQL, dbFile, db;
@@ -19,11 +20,18 @@ const initialize = async () => {
   try {
     dbFile = await fs.readFile(filePath);
   } catch (e) {
-    dbFile = await fs.writeFile(filePath, "");
+    //Every db init function goes here.
+    const createTablesStr = initializeTables();
+
+    db = new SQL.Database();
+    db.run(createTablesStr);
+
+    //Write db to file
+    dbFile = await fs.writeFile(filePath, new Buffer.from(db.export()));
   }
 
   try {
-    db = new SQL.Database(dbFile);
+    if (!db) db = new SQL.Database(dbFile);
   } catch (e) {
     console.error(e);
   }

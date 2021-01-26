@@ -5,6 +5,8 @@ const isDev = require("electron-is-dev");
 
 const ipcFunction = require("./ipc");
 const initDB = require("./db/init");
+const saveDB = require("./db/save");
+const getAll = require("./db/functions/getAll");
 
 let installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS;
 
@@ -47,9 +49,15 @@ const createWindow = async () => {
     win.webContents.openDevTools({ mode: "detach" });
   }
 
+  const db = await initDB();
   ipcFunction(win);
 
-  const db = await initDB();
+  //DB Autosave every 30 seconds
+  setInterval(() => {
+    //console.log("Autosaving database...");
+    // saveDB(db);
+    console.log("Getting apps: ", getAll(db, "apps"));
+  }, 10000);
 };
 
 app.whenReady().then(() => {

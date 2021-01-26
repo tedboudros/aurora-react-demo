@@ -22,12 +22,9 @@ module.exports = () => {
     });
   });
 
-  ipcMain.on(
-    ipcTypes.CHECK_IF_GAME_IS_RUNNING.REQ,
-    (event, gameExecutables) => {
-      checkIfGameIsRunning(gameExecutables || []).then((isRunning) =>
-        event.reply(ipcTypes.CHECK_IF_GAME_IS_RUNNING.RES, isRunning)
-      );
-    }
-  );
+  ipcMain.on(ipcTypes.CHECK_IF_GAME_IS_RUNNING.REQ, (event, executables) => {
+    checkIfGameIsRunning(executables || []).then((isRunning) =>
+      event.reply(ipcTypes.CHECK_IF_GAME_IS_RUNNING.RES, isRunning)
+    );
+  });
 };
