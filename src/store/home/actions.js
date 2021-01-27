@@ -10,17 +10,17 @@ export const setActiveGameIndex = (index) => (dispatch) => {
 };
 
 export const getSteamGames = () => async (dispatch) => {
-  dispatch({ type: TYPES.GET_STEAM_GAMES.START });
+  dispatch({ type: TYPES.GET_APPS.START });
 
   console.warn("Fetching steam games");
 
-  const ipcResponse = await ipc(ipcTypes.GET_STEAM_GAMES, "");
+  const ipcResponse = await ipc(ipcTypes.GET_APPS, "");
 
   dispatch({
-    type: TYPES.GET_STEAM_GAMES.FINISH,
+    type: TYPES.GET_APPS.FINISH,
     payload: ipcResponse.data
       .map((game) => {
-        const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.appid}/header.jpg`;
+        const icon = `https://steamcdn-a.akamaihd.net/steam/apps/${game.steamAppID}/header.jpg`;
         return { ...game, icon };
       })
       .sort((a, b) => a.name.localeCompare(b.name)),

@@ -12,14 +12,14 @@ export default (game) => {
     },
     sizeOnDisk: {
       title: "Size on disk",
-      value: convertSize(Number(game.SizeOnDisk), "GB", {
+      value: convertSize(Number(game.size), "GB", {
         stringify: true,
         accuracy: 2,
       }),
     },
     language: {
       title: "Language",
-      value: _get(game, "UserConfig.language", null),
+      value: _get(game, "language", null),
       className: "text-capitalize",
     },
     platform: { title: "Platform", value: game.platform },

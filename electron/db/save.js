@@ -4,7 +4,7 @@ const getHomeDir = require("../utils/getHomeDir");
 
 const saveDB = async (db) => {
   const homeDir = getHomeDir();
-  const filePath = `${homeDir}/Documents/aurora.db`;
+  const filePath = `${homeDir}/Documents/.aurora`;
 
   const data = db.export();
   const buffer = new Buffer.from(data);

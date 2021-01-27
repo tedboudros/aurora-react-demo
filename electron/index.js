@@ -51,15 +51,13 @@ const createWindow = async () => {
   }
 
   const db = await initDB();
-  ipcFunction(win);
+  ipcFunction(win, db);
 
-  //DB Autosave every 30 seconds
+  //DB Autosave every 5 seconds
   setInterval(() => {
-    //console.log("Autosaving database...");
-    // saveDB(db);
-    add(db, "apps", { name: "NAMETEST", steamAppID: 730 });
-    console.log("Getting apps: ", getAll(db, "apps"));
-  }, 10000);
+    console.log("DB: Auto-saved");
+    saveDB(db);
+  }, 5000);
 };
 
 app.whenReady().then(() => {

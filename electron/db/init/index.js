@@ -15,7 +15,7 @@ const initialize = async () => {
 
   const homeDir = getHomeDir();
 
-  const filePath = `${homeDir}/Documents/aurora.db`;
+  const filePath = `${homeDir}/Documents/.aurora`;
 
   try {
     dbFile = await fs.readFile(filePath);

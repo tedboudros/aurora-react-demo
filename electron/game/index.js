@@ -54,7 +54,10 @@ const getSteamGamesListFromLibrary = async (dir) => {
         appDir: gameDirectory,
         executables: filteredExecutables,
         platform: steam.platform,
-        ...parsedFile,
+        language: parsedFile.UserConfig.language,
+        size: parsedFile.SizeOnDisk,
+        steamAppID: parsedFile.appid,
+        name: parsedFile.name,
       };
 
       if (!steam.blacklistIds.includes(parsedFile.appid)) return finalGame;

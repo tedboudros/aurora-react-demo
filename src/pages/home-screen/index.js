@@ -36,8 +36,8 @@ const HomeScreen = () => {
   const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
-    const { appid } = activeGame;
-    startSteamGame(appid);
+    const { steamAppID } = activeGame;
+    startSteamGame(steamAppID);
     setIsGameLoading(true);
 
     const interval = setInterval(async () => {

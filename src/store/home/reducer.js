@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, { payload, type }) => {
         isLoading: payload,
       };
 
-    case TYPES.GET_STEAM_GAMES.FINISH:
+    case TYPES.GET_APPS.FINISH:
       return { ...state, steamGames: payload, isLoading: false };
 
     default:
