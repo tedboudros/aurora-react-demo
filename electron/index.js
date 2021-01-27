@@ -7,6 +7,7 @@ const ipcFunction = require("./ipc");
 const initDB = require("./db/init");
 const saveDB = require("./db/save");
 const getAll = require("./db/functions/getAll");
+const add = require("./db/functions/add");
 
 let installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS;
 
@@ -56,6 +57,7 @@ const createWindow = async () => {
   setInterval(() => {
     //console.log("Autosaving database...");
     // saveDB(db);
+    add(db, "apps", { name: "NAMETEST", steamAppID: 730 });
     console.log("Getting apps: ", getAll(db, "apps"));
   }, 10000);
 };

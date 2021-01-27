@@ -1,6 +1,6 @@
 const getAll = (db, table) => {
-  const res = db.exec(`SELECT * FROM ${table}`);
-  const { values, columns } = res[0];
+  const res = db.exec(`SELECT * FROM ${table};`);
+  const { values, columns } = res.length ? res[0] : { values: [] };
 
   return values.map((value) => {
     return Object.assign(
