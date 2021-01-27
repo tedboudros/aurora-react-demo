@@ -99,10 +99,10 @@ const startSteamGame = (appId) => {
 const checkIfGameIsRunning = async (executables) => {
   const processesArray = await Promise.all(
     executables.map(async (gameExecutable) => {
-      const gameFile = path.basename(gameExecutable);
-      console.log(`Searching for file: ${gameFile}`);
+      const { name } = gameExecutable;
+      console.log(`Searching for file: ${name}`);
 
-      return await find("name", gameFile, false);
+      return await find("name", name, false);
     })
   );
 

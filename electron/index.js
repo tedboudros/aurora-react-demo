@@ -6,8 +6,6 @@ const isDev = require("electron-is-dev");
 const ipcFunction = require("./ipc");
 const initDB = require("./db/init");
 const saveDB = require("./db/save");
-const getAll = require("./db/functions/getAll");
-const add = require("./db/functions/add");
 
 let installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS;
 

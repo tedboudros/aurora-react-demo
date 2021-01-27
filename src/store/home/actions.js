@@ -47,7 +47,7 @@ export const toggleFullscreen = () => async (dispatch) => {
   await ipc(ipcTypes.TOGGLE_FULLSCREEN);
 };
 
-export const checkIfGameIsRunning = async (gameName) => {
-  const isGameRunning = await ipc(ipcTypes.CHECK_IF_GAME_IS_RUNNING, gameName);
+export const checkIfGameIsRunning = async (appID) => {
+  const isGameRunning = await ipc(ipcTypes.CHECK_IF_GAME_IS_RUNNING, appID);
   return isGameRunning.data;
 };

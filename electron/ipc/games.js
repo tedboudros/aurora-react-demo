@@ -5,8 +5,9 @@ const {
   checkIfGameIsRunning,
 } = require("../game/index");
 
+const _flatten = require("lodash/flatten");
 const ipcTypes = require("./constants");
-
+const path = require("path");
 const dbFunctions = require("../db/functions");
 
 const filterOutBadGames = (games) => {
@@ -19,7 +20,7 @@ module.exports = (db) => {
   });
 
   ipcMain.on(ipcTypes.GET_APPS.REQ, (event) => {
-    const dbGames = dbFunctions.getAll(db, "apps");
+    const dbGames = dbFunctions.get(db, "apps");
 
     if (dbGames.length) {
       event.reply(ipcTypes.GET_APPS.RES, dbGames);
@@ -28,14 +29,28 @@ module.exports = (db) => {
 
     getSteamGamesList().then((gameList) => {
       const filteredGames = filterOutBadGames(gameList);
-      event.reply(ipcTypes.GET_APPS.RES, filteredGames);
+
+      const executables = _flatten(
+        filteredGames.map((game, i) =>
+          game.executables.map((executable) => ({
+            name: path.basename(executable),
+            location: executable,
+            appID: i + 1,
+          }))
+        )
+      );
 
       dbFunctions.add(db, "apps", filteredGames);
+      dbFunctions.add(db, "executables", executables);
+
+      event.reply(ipcTypes.GET_APPS.RES, dbFunctions.get(db, "apps"));
     });
   });
 
-  ipcMain.on(ipcTypes.CHECK_IF_GAME_IS_RUNNING.REQ, (event, executables) => {
-    checkIfGameIsRunning(executables || []).then((isRunning) =>
+  ipcMain.on(ipcTypes.CHECK_IF_GAME_IS_RUNNING.REQ, (event, id) => {
+    const executables = dbFunctions.get(db, "executables", { appID: id });
+
+    checkIfGameIsRunning(executables).then((isRunning) =>
       event.reply(ipcTypes.CHECK_IF_GAME_IS_RUNNING.RES, isRunning)
     );
   });

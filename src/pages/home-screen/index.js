@@ -41,9 +41,7 @@ const HomeScreen = () => {
     setIsGameLoading(true);
 
     const interval = setInterval(async () => {
-      const isRunning = await homeActions.checkIfGameIsRunning(
-        activeGame.executables
-      );
+      const isRunning = await homeActions.checkIfGameIsRunning(activeGame.id);
 
       if (isRunning) {
         clearInterval(interval);
