@@ -6,11 +6,7 @@ import useActions from "hooks/useActions";
 import { useSelector } from "react-redux";
 
 import * as homeActions from "store/home/actions";
-import {
-  selectActiveGameIndex,
-  selectIsHomeLoading,
-  selectSteamGames,
-} from "store/home/selectors";
+import { selectSteamGames } from "store/home/selectors";
 
 import useSound from "use-sound";
 import tap from "assets/sounds/tap.mp3";
@@ -21,7 +17,7 @@ const HomeScreenInputs = ({
   setIsAButtonDown = () => null,
   setIsBButtonDown = () => null,
 }) => {
-  const [play] = useSound(tap, { sprite: { tap: [0, 120] } });
+  const [play] = useSound(tap, { sprite: { tap: [335, 1000] }, volume: 0.3 });
 
   const [setActiveGameIndex] = useActions([homeActions.setActiveGameIndex]);
 

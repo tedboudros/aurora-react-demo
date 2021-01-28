@@ -22,11 +22,16 @@ import HomeHeader from "./header";
 import DetailsModal from "./details-modal";
 import StartMenu from "./start-menu";
 
-import useGamepadButton from "hooks/useGamepadButton";
+import useSound from "use-sound";
+import appStart from "assets/sounds/appStart.mp3";
 
 import Loader from "components/general/Loader";
 
 const HomeScreen = () => {
+  const [play] = useSound(appStart, {
+    volume: 0.2,
+  });
+
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isGameLoading, setIsGameLoading] = useState(false);
@@ -38,6 +43,7 @@ const HomeScreen = () => {
   const onPressStart = () => {
     const { steamAppID } = activeGame;
     startSteamGame(steamAppID);
+    play();
     setIsGameLoading(true);
 
     const interval = setInterval(async () => {
