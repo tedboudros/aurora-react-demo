@@ -55,7 +55,7 @@ const createWindow = async () => {
   setInterval(() => {
     console.log("DB: Auto-saved");
     saveDB(db);
-  }, 5000);
+  }, 30000);
 };
 
 app.whenReady().then(() => {
