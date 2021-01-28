@@ -1,3 +1,5 @@
+@import "../fonts/Oxygen";
+
 @import "./abstracts/variables";
 
 @import "./dist/auroral.min.css";
@@ -15,7 +17,7 @@ body {
   overflow: hidden;
   margin: 0;
   cursor: none !important;
-  font-family: "Poppins", sans-serif;
+  font-family: "Oxygen", sans-serif;
 }
 
 html,
