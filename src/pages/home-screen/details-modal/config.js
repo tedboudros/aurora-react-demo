@@ -11,7 +11,7 @@ export default (game) => {
       value: game.name,
     },
     sizeOnDisk: {
-      title: "Size on disk",
+      title: "Size",
       value: convertSize(Number(game.size), "GB", {
         stringify: true,
         accuracy: 2,
@@ -24,7 +24,7 @@ export default (game) => {
     },
     platform: { title: "Platform", value: game.platform },
     installedDrive: {
-      title: "Installed on drive",
+      title: "Installed on",
       value: `${_get(game, "appDir", "").split(":")[0]}:`,
     },
   };
