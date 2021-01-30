@@ -1,6 +1,6 @@
 import React from "react";
 
-import logo from "assets/png/logo.png";
+import logo from "assets/icon/logo.png";
 
 import Time from "components/home-page/Time";
 

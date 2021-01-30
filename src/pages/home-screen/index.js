@@ -29,7 +29,7 @@ import Loader from "components/general/Loader";
 
 const HomeScreen = () => {
   const [play] = useSound(appStart, {
-    volume: 0.2,
+    volume: 0.7,
   });
 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);

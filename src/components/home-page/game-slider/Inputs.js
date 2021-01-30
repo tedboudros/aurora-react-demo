@@ -17,7 +17,7 @@ const HomeScreenInputs = ({
   setIsAButtonDown = () => null,
   setIsBButtonDown = () => null,
 }) => {
-  const [play] = useSound(tap, { sprite: { tap: [335, 336] }, volume: 0.3 });
+  const [play] = useSound(tap, { sprite: { tap: [0, 250] }, volume: 0.3 });
 
   const [setActiveGameIndex] = useActions([homeActions.setActiveGameIndex]);
 
