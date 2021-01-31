@@ -67,7 +67,7 @@ const useGamepadDirection = (config = {}, behaviour) => {
           //Positive in
           const functionName = `on${axis.type.positiveType}`;
           if (config[functionName]) config[functionName]();
-          setSpam(config[`on${axis.type.positiveType}`]);
+          setSpam(config[functionName]);
         } else if (
           axis.positiveValue === false &&
           prevValue.positiveValue === true
@@ -85,7 +85,7 @@ const useGamepadDirection = (config = {}, behaviour) => {
           //Negative in
           const functionName = `on${axis.type.negativeType}`;
           if (config[functionName]) config[functionName]();
-          setSpam(config[`on${axis.type.negativeType}`]);
+          setSpam(config[functionName]);
         } else if (
           axis.negativeValue === false &&
           prevValue.negativeValue === true

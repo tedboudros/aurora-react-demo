@@ -3,16 +3,29 @@ import React, { useState } from "react";
 import buttons from "constants/buttons";
 import useGamepadButton from "hooks/useGamepadButton";
 
-const Button = ({ text, className, onPress, Icon, button, behaviour }) => {
+import useSoundEffect from "hooks/useSoundEffect";
+
+const Button = ({
+  text,
+  className,
+  onPress,
+  Icon,
+  button,
+  behaviour,
+  isSoundDisabled,
+}) => {
   const [isButtonDown, setIsButtonDown] = useState(false);
 
   const buttonInfo = buttons[button];
+
+  const playButtonSound = useSoundEffect("buttonDown");
 
   useGamepadButton(
     {
       [buttonInfo.buttonIndex]: {
         onButtonDown: () => {
           setIsButtonDown(true);
+          if (!isSoundDisabled) playButtonSound();
           if (onPress) onPress();
         },
         onButtonUp: () => {

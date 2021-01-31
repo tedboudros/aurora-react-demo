@@ -22,15 +22,12 @@ import HomeHeader from "./header";
 import DetailsModal from "./details-modal";
 import StartMenu from "./start-menu";
 
-import useSound from "use-sound";
-import appStart from "assets/sounds/appStart.mp3";
+import useSoundEffect from "hooks/useSoundEffect";
 
 import Loader from "components/general/Loader";
 
 const HomeScreen = () => {
-  const [play] = useSound(appStart, {
-    volume: 0.7,
-  });
+  const playAppStartSound = useSoundEffect("appStart");
 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
@@ -43,7 +40,7 @@ const HomeScreen = () => {
   const onPressStart = () => {
     const { steamAppID } = activeGame;
     startSteamGame(steamAppID);
-    play();
+    playAppStartSound();
     setIsGameLoading(true);
 
     const interval = setInterval(async () => {
@@ -78,6 +75,7 @@ const HomeScreen = () => {
             text="start"
             button="A"
             Icon={IoGameController}
+            isSoundDisabled
             className="mr-4"
           />
           <GameTitle />
