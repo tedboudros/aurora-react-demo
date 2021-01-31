@@ -41,12 +41,25 @@ const getSteamGamesListFromLibrary = async (dir) => {
     .map(async (gameFile) => {
       const gameACFPath = `${dir}/${gameFile}`;
 
-      const file = await fs.readFile(gameACFPath, steam.encoding);
-      const parsedFile = parse(file)["AppState"];
+      let parsedFile = {};
+
+      try {
+        const file = await fs.readFile(gameACFPath, steam.encoding);
+        parsedFile = parse(file)["AppState"];
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
 
       const gameDirectory = `${dir}/common/${parsedFile.installdir}`;
 
-      const executables = await searchForFile(`${gameDirectory}/**/*.exe`);
+      let executables = [];
+
+      try {
+        executables = await searchForFile(`${gameDirectory}/**/*.exe`);
+      } catch (e) {
+        console.error(e);
+      }
 
       const filteredExecutables = filterGameFiles(executables);
 
