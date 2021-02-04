@@ -10,8 +10,8 @@ import { selectIsDrawerOpen } from "store/drawer/selectors";
 import { shouldRegister } from "utils/gamepadBehaviour";
 
 // in ms
-const spamTimeout = 400;
-const spamInterval = 150;
+const spamTimeout = 200;
+const spamInterval = 110;
 
 const useGamepadDirection = (config = {}, behaviour) => {
   const {
