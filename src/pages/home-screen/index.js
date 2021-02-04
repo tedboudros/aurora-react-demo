@@ -31,17 +31,19 @@ const HomeScreen = () => {
 
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
-  const [isGameLoading, setIsGameLoading] = useState(false);
-  const [startSteamGame] = useActions([homeActions.startSteamGame]);
+  const [startSteamGame, setIsHomeLoading] = useActions([
+    homeActions.startSteamGame,
+    homeActions.setIsHomeLoading,
+  ]);
 
-  const isLoadingGames = useSelector(selectIsHomeLoading);
+  const isLoadingHome = useSelector(selectIsHomeLoading);
   const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
     const { steamAppID } = activeGame;
     startSteamGame(steamAppID);
     playAppStartSound();
-    setIsGameLoading(true);
+    setIsHomeLoading(true);
 
     const interval = setInterval(async () => {
       const isRunning = await homeActions.checkIfGameIsRunning(activeGame.id);
@@ -49,13 +51,13 @@ const HomeScreen = () => {
       if (isRunning) {
         clearInterval(interval);
         setTimeout(() => {
-          setIsGameLoading(() => false);
+          setIsHomeLoading(false);
         }, 5000);
       }
     }, 5000);
   };
 
-  const isLoading = isLoadingGames || isGameLoading;
+  const isLoading = isLoadingHome;
 
   return (
     <div className="home-screen">

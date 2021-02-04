@@ -16,13 +16,16 @@ const Development = ({ children }) => {
     document.title = `Aurora v${process.env.REACT_APP_AURORA_VERSION}`;
   }, []);
 
-  useGamepadButton({
-    8: {
-      onButtonDown: () => {
-        document.location.reload();
+  useGamepadButton(
+    {
+      8: {
+        onButtonDown: () => {
+          document.location.reload();
+        },
       },
     },
-  });
+    "always"
+  );
 
   return children;
 };

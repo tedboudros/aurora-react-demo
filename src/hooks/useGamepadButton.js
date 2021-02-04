@@ -8,7 +8,7 @@ import usePrevious from "hooks/usePrevious";
 import { useSelector } from "react-redux";
 import { selectIsDrawerOpen } from "store/drawer/selectors";
 
-import { shouldRegister } from "utils/gamepadBehaviour";
+import useShouldRegister from "hooks/useShouldRegister";
 
 const useGamepadButton = (config, behaviour) => {
   const {
@@ -17,6 +17,7 @@ const useGamepadButton = (config, behaviour) => {
   const previousButtonsState = usePrevious(buttons);
 
   const isDrawerOpen = useSelector(selectIsDrawerOpen);
+  const shouldRegister = useShouldRegister();
 
   useEffect(() => {
     if (!_isEqual(buttons, previousButtonsState) && buttons) {

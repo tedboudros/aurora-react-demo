@@ -4,10 +4,7 @@ import usePrevious from "hooks/usePrevious";
 import _isEqual from "lodash/isEqual";
 import _debounce from "lodash/debounce";
 
-import { useSelector } from "react-redux";
-import { selectIsDrawerOpen } from "store/drawer/selectors";
-
-import { shouldRegister } from "utils/gamepadBehaviour";
+import useShouldRegister from "hooks/useShouldRegister";
 
 // in ms
 const spamTimeout = 200;
@@ -22,7 +19,7 @@ const useGamepadDirection = (config = {}, behaviour) => {
   const currentSpam = useRef();
   const currentTimeout = useRef();
 
-  const isDrawerOpen = useSelector(selectIsDrawerOpen);
+  const shouldRegister = useShouldRegister();
 
   const setSpam = (func) => {
     stopSpam();
@@ -54,11 +51,7 @@ const useGamepadDirection = (config = {}, behaviour) => {
     ) {
       axes.forEach((axis, i) => {
         const prevValue = previousAxesState[i];
-        const isRegistered = shouldRegister(
-          behaviour,
-          `axes${i}`,
-          isDrawerOpen
-        );
+        const isRegistered = shouldRegister(behaviour, `axes${i}`);
 
         if (
           axis.positiveValue === true &&
