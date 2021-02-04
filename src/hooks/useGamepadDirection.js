@@ -25,6 +25,7 @@ const useGamepadDirection = (config = {}, behaviour) => {
   const isDrawerOpen = useSelector(selectIsDrawerOpen);
 
   const setSpam = (func) => {
+    stopSpam();
     currentTimeout.current = setTimeout(() => {
       currentSpam.current = setInterval(() => {
         if (func) func();
