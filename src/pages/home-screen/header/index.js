@@ -4,9 +4,6 @@ import logo from "assets/icon/logo.png";
 
 import Time from "components/home-page/Time";
 
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { IoVolumeHighOutline } from "react-icons/io5";
-
 const HomeHeader = () => {
   return (
     <div className="home-screen__header d-flex justify-content-between">
@@ -19,10 +16,6 @@ const HomeHeader = () => {
       </div>
       <div className="home-screen__header--time">
         <Time />
-      </div>
-      <div className="home-screen__icons">
-        <IoVolumeHighOutline size={22} className="mr-2" />
-        <IoIosNotificationsOutline size={24} />
       </div>
     </div>
   );

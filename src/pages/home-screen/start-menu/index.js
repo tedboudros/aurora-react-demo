@@ -2,8 +2,7 @@ import React from "react";
 
 import Drawer from "components/general/Drawer";
 
-import { IoClose } from "react-icons/io5";
-import { FiMinimize } from "react-icons/fi";
+import { Close, Minimize } from "assets/icons";
 
 import List from "components/general/List";
 import useActions from "hooks/useActions";
@@ -17,8 +16,8 @@ const StartMenu = ({ isOpen, setIsOpen }) => {
   ]);
 
   const listItems = [
-    { icon: FiMinimize, title: "Toggle fullscreen", onPress: toggleFullscreen },
-    { icon: IoClose, title: "Quit aurora", onPress: quitApp },
+    { icon: Minimize, title: "Toggle fullscreen", onPress: toggleFullscreen },
+    { icon: Close, title: "Quit aurora", onPress: quitApp },
   ];
 
   return (

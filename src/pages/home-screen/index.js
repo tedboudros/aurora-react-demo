@@ -15,8 +15,7 @@ import {
 } from "store/home/selectors";
 import { useSelector } from "react-redux";
 
-import { IoGameController, IoCog } from "react-icons/io5";
-import { FiList } from "react-icons/fi";
+import { List, GameController, Settings } from "assets/icons";
 
 import HomeHeader from "./header";
 import DetailsModal from "./details-modal";
@@ -76,7 +75,7 @@ const HomeScreen = () => {
             onPress={onPressStart}
             text="start"
             button="A"
-            Icon={IoGameController}
+            Icon={GameController}
             isSoundDisabled
             className="mr-4"
           />
@@ -85,14 +84,14 @@ const HomeScreen = () => {
         <div className="d-flex align-items-center">
           <Button
             text="menu"
-            Icon={IoCog}
+            Icon={Settings}
             button="start"
             className="mr-4"
             onPress={() => setIsStartMenuOpen(!isStartMenuOpen)}
           />
           <Button
             text="details"
-            Icon={FiList}
+            Icon={List}
             button="Y"
             onPress={() => setIsDetailsModalOpen(true)}
           />

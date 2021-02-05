@@ -1,7 +1,5 @@
 import React from "react";
 
-import { IoIosArrowDown } from "react-icons/io";
-
 const Game = ({ isActive = false, game }) => {
   return (
     <div className="game--container">

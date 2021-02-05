@@ -3,7 +3,7 @@ import React from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Button from "components/general/Button";
 
-import { BiArrowBack } from "react-icons/bi";
+import { ArrowBack } from "assets/icons";
 
 const ModalComp = ({ className, isOpen, setIsOpen, children, title }) => {
   return (
