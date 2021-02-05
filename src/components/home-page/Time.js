@@ -13,14 +13,14 @@ const Time = () => {
 
       if (newTime.format(timeFormat) !== currentTime.format(timeFormat))
         setCurrentTime(() => newTime);
-    }, 10 * 1000); // Every 10 seconds
+    }, 5 * 1000); // Every 10 seconds
 
     return () => {
       clearInterval(timeCheckInterval);
     };
   }, []);
 
-  return <span>{currentTime.format(timeFormat)}</span>;
+  return <span className="time">{currentTime.format(timeFormat)}</span>;
 };
 
 export default Time;
