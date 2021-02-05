@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import useGamepadDirection from "hooks/useGamepadDirection";
 import useGamepadButton from "hooks/useGamepadButton";
+import useSoundEffect from "hooks/useSoundEffect";
 
 const ListItem = ({ item, isActive }) => {
   return (
@@ -14,6 +15,12 @@ const ListItem = ({ item, isActive }) => {
 
 const List = ({ items, behaviour }) => {
   const [activeItem, setActiveItem] = useState(0);
+  const playSoundEffect = useSoundEffect("tap");
+
+  useEffect(() => {
+
+    playSoundEffect();
+  }, [activeItem])
 
   useGamepadButton(
     {
@@ -27,14 +34,16 @@ const List = ({ items, behaviour }) => {
 
   useGamepadDirection(
     {
-      onUp: () =>
+      onUp: () => {
         setActiveItem((lastState) =>
           lastState === 0 ? lastState : lastState - 1
-        ),
-      onDown: () =>
+        );
+      },
+      onDown: () => {
         setActiveItem((lastState) =>
           lastState === items.length - 1 ? lastState : lastState + 1
-        ),
+        );
+      },
     },
     behaviour
   );
