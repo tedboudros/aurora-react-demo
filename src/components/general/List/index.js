@@ -4,6 +4,8 @@ import useGamepadDirection from "hooks/useGamepadDirection";
 import useGamepadButton from "hooks/useGamepadButton";
 import useSoundEffect from "hooks/useSoundEffect";
 
+import Button from "../Button";
+
 const ListItem = ({ item, isActive }) => {
   return (
     <div className={`list-item${isActive ? " active" : ""}`}>
@@ -18,19 +20,8 @@ const List = ({ items, behaviour }) => {
   const playSoundEffect = useSoundEffect("tap");
 
   useEffect(() => {
-
     playSoundEffect();
-  }, [activeItem])
-
-  useGamepadButton(
-    {
-      0: {
-        onButtonDown: () =>
-          items[activeItem].onPress ? items[activeItem].onPress() : null,
-      },
-    },
-    "drawer"
-  );
+  }, [activeItem]);
 
   useGamepadDirection(
     {
@@ -51,7 +42,20 @@ const List = ({ items, behaviour }) => {
   return (
     <div className="list">
       {items.map((item, i) => (
-        <ListItem item={item} isActive={i === activeItem} />
+        <>
+          <Button
+            text={item.title}
+            Icon={item.icon}
+            button="A"
+            onPress={() =>
+              item.onPress && i === activeItem ? item.onPress() : null
+            }
+            highlighted={i === activeItem}
+            list
+            behaviour="drawer"
+            className="mb-2"
+          />
+        </>
       ))}
     </div>
   );

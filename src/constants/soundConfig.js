@@ -4,7 +4,7 @@ import buttonDown from "assets/sounds/openDrawer.mp3";
 
 export default {
   tap: {
-    volume: 0.3,
+    volume: 0.2,
     sprite: { tap: [0, 250] },
     file: tap,
   },

@@ -93,7 +93,7 @@ const HomeScreen = () => {
             text="details"
             Icon={List}
             button="Y"
-            onPress={() => setIsDetailsModalOpen(true)}
+            onPress={() => setIsDetailsModalOpen(!isDetailsModalOpen)}
           />
         </div>
         <DetailsModal

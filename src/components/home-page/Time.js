@@ -20,7 +20,18 @@ const Time = () => {
     };
   }, []);
 
-  return <span className="time">{currentTime.format(timeFormat)}</span>;
+  const formattedTime = currentTime.format(timeFormat);
+
+  const hrs = formattedTime.split(":")[0];
+  const rest = formattedTime.split(":")[1];
+
+  return (
+    <div className="time">
+      {hrs}
+      <span className="middle">:</span>
+      {rest}
+    </div>
+  );
 };
 
 export default Time;

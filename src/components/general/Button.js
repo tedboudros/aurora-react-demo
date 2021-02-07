@@ -13,6 +13,8 @@ const Button = ({
   button,
   behaviour,
   isSoundDisabled,
+  highlighted,
+  list,
 }) => {
   const [isButtonDown, setIsButtonDown] = useState(false);
 
@@ -37,13 +39,19 @@ const Button = ({
   );
 
   return (
-    <div className={`button ${className}  ${isButtonDown ? "pressed" : ""}`}>
+    <div
+      className={`button ${className} ${highlighted ? "highlighted" : ""}  ${
+        isButtonDown && (list ? highlighted : true) ? "pressed" : ""
+      }`}
+    >
       <div className="d-flex justify-content-center align-items-center">
         <Icon size={18} className="mr-2" />
         {text}
       </div>
       <div
-        className={`button__preview ${buttonInfo ? buttonInfo.className : ""}`}
+        className={`button__preview ${
+          (list ? list && !highlighted : false) ? "not-selected" : ""
+        } ${buttonInfo ? buttonInfo.className : ""}`}
       >
         {buttonInfo ? buttonInfo.text : ""}
       </div>

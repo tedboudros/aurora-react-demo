@@ -17,11 +17,16 @@ const StartMenu = ({ isOpen, setIsOpen }) => {
 
   const listItems = [
     { icon: Minimize, title: "Toggle fullscreen", onPress: toggleFullscreen },
-    { icon: Close, title: "Quit aurora", onPress: quitApp },
+    { icon: Close, title: "Quit", onPress: quitApp },
   ];
 
   return (
-    <Drawer isOpen={isOpen} setIsOpen={setIsOpen} title={"Menu"}>
+    <Drawer
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title={"Menu"}
+      closeButton="start"
+    >
       <div className="d-flex flex-column justify-content-between h-100">
         <List items={listItems} behaviour="drawer" />
       </div>

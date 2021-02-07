@@ -16,7 +16,12 @@ const DetailsModal = ({ isOpen, setIsOpen }) => {
   const activeContent = config(isActiveGameValid ? activeGame : null);
 
   return isActiveGameValid ? (
-    <Drawer isOpen={isOpen} setIsOpen={setIsOpen} title={"Details:"}>
+    <Drawer
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title={"Details:"}
+      closeButton="Y"
+    >
       <div className="d-flex align-items-center flex-wrap">
         {Object.keys(activeContent).map((key) => {
           return activeContent[key].value ? (

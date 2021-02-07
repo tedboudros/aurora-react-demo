@@ -22,6 +22,7 @@ const HomeScreenInputs = ({ children }) => {
 
       if (!(newValue < 0 || newValue === games.length)) {
         playSoundEffect();
+
         return newValue;
       }
 
