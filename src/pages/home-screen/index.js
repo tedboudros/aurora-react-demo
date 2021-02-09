@@ -5,14 +5,14 @@ import GameSlider from "components/home-page/game-slider";
 
 import Button from "components/general/Button";
 
-import * as homeActions from "store/home/actions";
+import * as homeActions from "store/apps/actions";
 import useActions from "hooks/useActions";
 
 import {
   selectIsHomeLoading,
   selectActiveGame,
   //selectSteamGames,
-} from "store/home/selectors";
+} from "store/apps/selectors";
 import { useSelector } from "react-redux";
 
 import { List, GameController, Settings } from "assets/icons";

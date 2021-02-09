@@ -2,7 +2,7 @@ import React from "react";
 
 import Game from "components/general/Game";
 
-import { selectActiveGameIndex, selectSteamGames } from "store/home/selectors";
+import { selectActiveGameIndex, selectSteamGames } from "store/apps/selectors";
 
 import { useSelector } from "react-redux";
 

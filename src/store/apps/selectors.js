@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-const selectHomeState = (state) => state.home;
+const selectHomeState = (state) => state.apps;
 
 export const selectActiveGameIndex = createSelector(
   selectHomeState,

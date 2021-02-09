@@ -3,7 +3,7 @@ import React from "react";
 import Drawer from "components/general/Drawer";
 import InfoCard from "components/general/InfoCard";
 
-import { selectActiveGame } from "store/home/selectors";
+import { selectActiveGame } from "store/apps/selectors";
 import { useSelector } from "react-redux";
 
 import config from "./config";

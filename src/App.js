@@ -4,7 +4,7 @@ import HomeScreen from "pages/home-screen";
 import { GamepadsProvider } from "contexts/GamepadsContext";
 import Development from "components/utils/Development";
 
-import * as homeActions from "store/home/actions";
+import * as homeActions from "store/apps/actions";
 import useActions from "hooks/useActions";
 
 const App = () => {

@@ -4,8 +4,8 @@ import useGamepadDirection from "hooks/useGamepadDirection";
 import useActions from "hooks/useActions";
 import { useSelector } from "react-redux";
 
-import * as homeActions from "store/home/actions";
-import { selectSteamGames } from "store/home/selectors";
+import * as homeActions from "store/apps/actions";
+import { selectSteamGames } from "store/apps/selectors";
 
 import useSoundEffect from "hooks/useSoundEffect";
 

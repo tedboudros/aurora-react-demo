@@ -53,6 +53,8 @@ const useGamepadDirection = (config = {}, behaviour) => {
         const prevValue = previousAxesState[i];
         const isRegistered = shouldRegister(behaviour, `axes${i}`);
 
+        if (i > 1) return;
+
         if (
           axis.positiveValue === true &&
           prevValue.positiveValue === false &&

@@ -25,6 +25,7 @@ const createWindow = async () => {
     width: 1280,
     height: 720,
     backgroundColor: "#000",
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
     },

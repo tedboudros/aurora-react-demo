@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import home from "./home/reducer";
+import apps from "./apps/reducer";
 import notifications from "./notifications/reducer";
 import drawer from "./drawer/reducer";
 
 const combinedReducer = combineReducers({
-  home,
+  apps,
   notifications,
   drawer,
 });

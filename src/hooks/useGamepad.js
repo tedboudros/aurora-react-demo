@@ -10,8 +10,8 @@ const axesConfig = [
   { positiveType: "Down", negativeType: "Up" },
 ];
 
-const axisPositiveThreshold = 0.7;
-const axisNegativeThreshold = -0.7;
+const axisPositiveThreshold = 0.4;
+const axisNegativeThreshold = -0.4;
 
 const useGamepad = () => {
   const [activeButtons, setActiveButtons] = useState();

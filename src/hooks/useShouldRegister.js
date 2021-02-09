@@ -3,7 +3,7 @@ import _get from "lodash/get";
 
 import { useSelector } from "react-redux";
 import { selectIsDrawerOpen } from "store/drawer/selectors";
-import { selectIsHomeLoading } from "store/home/selectors";
+import { selectIsHomeLoading } from "store/apps/selectors";
 
 const useShouldRegister = () => {
   const isDrawerOpen = useSelector(selectIsDrawerOpen);

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { selectActiveGameTitle } from "store/home/selectors";
+import { selectActiveGameTitle } from "store/apps/selectors";
 
 import { useSelector } from "react-redux";
 
