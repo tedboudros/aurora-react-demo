@@ -22,12 +22,12 @@ import DetailsModal from "./details-modal";
 import StartMenu from "./start-menu";
 
 import useSoundEffect from "hooks/useSoundEffect";
-
 import Loader from "components/general/Loader";
 
 const HomeScreen = () => {
   const playAppStartSound = useSoundEffect("appStart");
 
+  const [stateInterval, setStateInterval] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [startSteamGame, setIsHomeLoading] = useActions([
@@ -54,13 +54,20 @@ const HomeScreen = () => {
         }, 5000);
       }
     }, 5000);
+
+    setStateInterval(interval);
+  };
+
+  const goBack = () => {
+    setIsHomeLoading(false);
+    clearInterval(stateInterval);
   };
 
   const isLoading = isLoadingHome;
 
   return (
     <div className="home-screen">
-      <Loader isLoading={isLoading} />
+      <Loader isLoading={isLoading} canGoBack goBack={goBack} />
       <div className="home-screen__background--container">
         <div className="home-screen__background">
           <div className="auroral-agraba" />

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import { useGamepads } from "react-gamepads";
 
 import _isEqual from "lodash/isEqual";
@@ -10,8 +10,8 @@ const axesConfig = [
   { positiveType: "Down", negativeType: "Up" },
 ];
 
-const axisPositiveThreshold = 0.4;
-const axisNegativeThreshold = -0.4;
+const axisPositiveThreshold = 0.5;
+const axisNegativeThreshold = -0.5;
 
 const useGamepad = () => {
   const [activeButtons, setActiveButtons] = useState();
