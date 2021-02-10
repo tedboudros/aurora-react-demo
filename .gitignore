@@ -25,4 +25,33 @@ yarn-debug.log*
 yarn-error.log*
 
 # Builds
-/out
+/electron/out
+
+# ELECTRON
+
+# dependencies
+/electron/node_modules
+/electron/.pnp
+/electron.pnp.js
+
+# testing
+/electron/coverage
+
+# production
+/electron/build
+
+# misc
+/electron.DS_Store
+/electron.env.local
+/electron.env.development.local
+/electron.env.test.local
+/electron.env.production.local
+
+/electron.eslintcache
+
+/electronnpm-debug.log*
+/electronyarn-debug.log*
+/electronyarn-error.log*
+
+# Builds
+/electron/out

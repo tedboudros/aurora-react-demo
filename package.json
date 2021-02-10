@@ -8,7 +8,6 @@
   "private": true,
   "dependencies": {
     "@inlet/react-pixi": "^6.0.6",
-    "@node-steam/vdf": "^2.1.0",
     "@pixi/filter-adjustment": "^3.1.1",
     "@testing-library/dom": "^7.29.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -18,10 +17,7 @@
     "bootstrap": "^4.6.0",
     "convert-size": "^1.1.5",
     "d3-ease": "^2.0.0",
-    "electron-is-dev": "^1.2.0",
-    "electron-squirrel-startup": "^1.0.0",
     "fast-average-color": "^6.3.0",
-    "find-process": "^1.4.4",
     "glob": "^7.1.6",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
@@ -42,20 +38,17 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "sql.js": "^1.4.0",
     "typescript": "^4.1.3",
     "use-sound": "^2.0.1",
     "web-vitals": "^0.2.4"
   },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  },
   "scripts": {
-    "dev": "concurrently -k \"yarn start\" \"yarn electron\"",
-    "electron": "wait-on tcp:23000 && electron-forge start",
+    "dev": "concurrently -k \"yarn start\" \"cd electron && yarn start\"",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "package": "react-scripts build && electron-forge package",
-    "make": "react-scripts build && electron-forge make"
+    "build": "react-scripts build && move build electron/build && cd electron && yarn package && cd out && tar -a -c -f Aurora.zip Aurora-win32-x64 && move Aurora.zip %USERPROFILE%/Desktop && cd ../ && rmdir /s /q out && rmdir /s /q build"
   },
   "eslintConfig": {
     "extends": [
@@ -74,47 +67,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "concurrently": "^5.3.0",
-    "electron": "^11.1.1",
-    "electron-devtools-installer": "^3.1.1",
-    "wait-on": "^5.2.0"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {
-        "name": "Aurora",
-        "asar": true,
-        "icon": "src/assets/icon/logo"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "aurora"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
   }
 }
