@@ -9,6 +9,7 @@ const _flatten = require("lodash/flatten");
 const ipcTypes = require("./constants");
 const path = require("path");
 const dbFunctions = require("../db/functions");
+const saveDB = require("../db/save");
 
 const filterOutBadGames = (games) => {
   return games.filter((game) => (!game ? false : Object.keys(game).length));
@@ -42,6 +43,8 @@ module.exports = (db) => {
 
       dbFunctions.add(db, "apps", filteredGames);
       dbFunctions.add(db, "executables", executables);
+
+      saveDB(db);
 
       event.reply(ipcTypes.GET_APPS.RES, dbFunctions.get(db, "apps"));
     });

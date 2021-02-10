@@ -1,6 +1,6 @@
 import tap from "assets/sounds/tap.mp3";
 import appStart from "assets/sounds/appStart.mp3";
-import buttonDown from "assets/sounds/openDrawer.mp3";
+import buttonDown from "assets/sounds/buttonClick.mp3";
 
 export default {
   tap: {
@@ -14,6 +14,6 @@ export default {
   },
   buttonDown: {
     file: buttonDown,
-    volume: 0.7,
+    volume: 0.3,
   },
 };
