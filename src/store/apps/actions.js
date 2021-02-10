@@ -33,8 +33,12 @@ export const startSteamGame = (appId) => async (dispatch) => {
   dispatch({ type: TYPES.START_STEAM_GAME.FINISH, payload: appId });
 };
 
-export const setIsHomeLoading = (isLoading) => (dispatch) => {
-  dispatch({ type: TYPES.SET_HOME_IS_LOADING, payload: isLoading });
+export const setAreAppsFetching = (isLoading) => (dispatch) => {
+  dispatch({ type: TYPES.SET_ARE_APPS_FETCHING, payload: isLoading });
+};
+
+export const setIsAppLoading = (isLoading) => (dispatch) => {
+  dispatch({ type: TYPES.SET_IS_APP_LOADING, payload: isLoading });
 };
 
 export const quitApp = () => async (dispatch) => {

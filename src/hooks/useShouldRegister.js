@@ -3,11 +3,18 @@ import _get from "lodash/get";
 
 import { useSelector } from "react-redux";
 import { selectIsDrawerOpen } from "store/drawer/selectors";
-import { selectIsHomeLoading } from "store/apps/selectors";
+import {
+  selectIsAppLoading,
+  selectAreAppsFetching,
+} from "store/apps/selectors";
 
 const useShouldRegister = () => {
   const isDrawerOpen = useSelector(selectIsDrawerOpen);
-  const isHomeLoading = useSelector(selectIsHomeLoading);
+
+  const isAppLoading = useSelector(selectIsAppLoading);
+  const areAppsFetching = useSelector(selectAreAppsFetching);
+
+  const isLoading = isAppLoading || areAppsFetching;
 
   const shouldRegisterSingle = (behaviour) => {
     switch (behaviour) {
@@ -18,11 +25,11 @@ const useShouldRegister = () => {
         return true;
 
       case "loader":
-        return isHomeLoading;
+        return isLoading;
 
       case "default":
       default:
-        return !isDrawerOpen && !isHomeLoading;
+        return !isDrawerOpen && !isLoading;
     }
   };
 

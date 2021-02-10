@@ -9,9 +9,9 @@ import * as homeActions from "store/apps/actions";
 import useActions from "hooks/useActions";
 
 import {
-  selectIsHomeLoading,
+  selectIsAppLoading,
+  selectAreAppsFetching,
   selectActiveGame,
-  //selectSteamGames,
 } from "store/apps/selectors";
 import { useSelector } from "react-redux";
 
@@ -30,19 +30,20 @@ const HomeScreen = () => {
   const [stateInterval, setStateInterval] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
-  const [startSteamGame, setIsHomeLoading] = useActions([
+  const [startSteamGame, setIsAppLoading] = useActions([
     homeActions.startSteamGame,
-    homeActions.setIsHomeLoading,
+    homeActions.setIsAppLoading,
   ]);
 
-  const isLoadingHome = useSelector(selectIsHomeLoading);
+  const isAppLoading = useSelector(selectIsAppLoading);
+  const areAppsFetching = useSelector(selectAreAppsFetching);
   const activeGame = useSelector(selectActiveGame);
 
   const onPressStart = () => {
     const { steamAppID } = activeGame;
     startSteamGame(steamAppID);
     playAppStartSound();
-    setIsHomeLoading(true);
+    setIsAppLoading(true);
 
     const interval = setInterval(async () => {
       const isRunning = await homeActions.checkIfGameIsRunning(activeGame.id);
@@ -50,7 +51,7 @@ const HomeScreen = () => {
       if (isRunning) {
         clearInterval(interval);
         setTimeout(() => {
-          setIsHomeLoading(false);
+          setIsAppLoading(false);
         }, 5000);
       }
     }, 5000);
@@ -59,15 +60,15 @@ const HomeScreen = () => {
   };
 
   const goBack = () => {
-    setIsHomeLoading(false);
+    setIsAppLoading(false);
     clearInterval(stateInterval);
   };
 
-  const isLoading = isLoadingHome;
+  const isLoading = isAppLoading || areAppsFetching;
 
   return (
     <div className="home-screen">
-      <Loader isLoading={isLoading} canGoBack goBack={goBack} />
+      <Loader isLoading={isLoading} canGoBack={isAppLoading} goBack={goBack} />
       <div className="home-screen__background--container">
         <div className="home-screen__background">
           <div className="auroral-agraba" />

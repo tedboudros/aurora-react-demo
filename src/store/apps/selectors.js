@@ -13,9 +13,14 @@ export const selectActiveGame = createSelector(selectHomeState, (state) =>
     : {}
 );
 
-export const selectIsHomeLoading = createSelector(
+export const selectAreAppsFetching = createSelector(
   selectHomeState,
-  (state) => state.isLoading
+  (state) => state.areAppsFetching
+);
+
+export const selectIsAppLoading = createSelector(
+  selectHomeState,
+  (state) => state.isAppLoading
 );
 
 export const selectSteamGames = createSelector(
