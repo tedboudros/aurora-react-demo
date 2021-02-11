@@ -8,10 +8,25 @@ import * as drawerActions from "store/drawer/actions";
 import { ArrowBack } from "assets/icons";
 
 const Drawer = ({ children, isOpen, setIsOpen, title, closeButton }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isUsable, setIsUsable] = useState(false);
   const [setIsDrawerOpen] = useActions([drawerActions.setIsDrawerOpen]);
 
   useEffect(() => {
+    let isVisibleTimeout, isUsableTimeout;
+
+    if (isOpen) setIsVisible(true);
+    else isVisibleTimeout = setTimeout(() => setIsVisible(false), 200);
+
+    if (!isOpen) setIsUsable(false);
+    else isUsableTimeout = setTimeout(() => setIsUsable(true), 200);
+
     setIsDrawerOpen(isOpen);
+
+    return () => {
+      if (isVisibleTimeout) clearTimeout(isVisibleTimeout);
+      if (isUsableTimeout) clearTimeout(isUsableTimeout);
+    };
   }, [isOpen]);
 
   return (
@@ -20,22 +35,25 @@ const Drawer = ({ children, isOpen, setIsOpen, title, closeButton }) => {
       <div className={`drawer ${isOpen ? "active" : ""}`}>
         {title ? <div className="drawer__title">{title}</div> : null}
         <div className="d-flex flex-column justify-content-between h-100">
-          <div className="drawer__inner">{children}</div>
+          {isVisible ? <div className="drawer__inner">{children}</div> : null}
+
           <div className="my-4">
-            <Button
-              text="back"
-              Icon={ArrowBack}
-              button="B"
-              onPress={() => setIsOpen(false)}
-              behaviour="drawer"
-            />
-            {closeButton && isOpen ? (
+            {isVisible ? (
+              <Button
+                text="back"
+                Icon={ArrowBack}
+                button="B"
+                onPress={() => (isUsable ? setIsOpen(false) : null)}
+                behaviour="drawer"
+              />
+            ) : null}
+            {closeButton && isVisible ? (
               <div className="d-none">
                 <Button
                   text="BACK"
                   Icon={ArrowBack}
                   button={closeButton}
-                  onPress={() => setIsOpen(false)}
+                  onPress={() => (isUsable ? setIsOpen(false) : null)}
                   behaviour="drawer"
                 />
               </div>

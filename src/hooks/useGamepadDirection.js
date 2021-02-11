@@ -5,6 +5,7 @@ import _isEqual from "lodash/isEqual";
 import _debounce from "lodash/debounce";
 
 import useShouldRegister from "hooks/useShouldRegister";
+import useGamepadButton from "hooks/useGamepadButton";
 
 // in ms
 const spamTimeout = 150;
@@ -42,6 +43,38 @@ const useGamepadDirection = (config = {}, behaviour) => {
     currentTimeout.current = null;
   };
 
+  const onDown = (funcName) => {
+    if (config[funcName]) config[funcName]();
+    setSpam(config[funcName]);
+  };
+
+  const onUp = (funcName) => {
+    if (config[funcName]) config[funcName]();
+    stopSpam();
+  };
+
+  useGamepadButton(
+    {
+      12: {
+        onButtonDown: () => onDown("onUp"),
+        onButtonUp: () => onDown("onUpLeave"),
+      },
+      13: {
+        onButtonDown: () => onDown("onDown"),
+        onButtonUp: () => onDown("onDownLeave"),
+      },
+      14: {
+        onButtonDown: () => onDown("onLeft"),
+        onButtonUp: () => onDown("onLeftLeave"),
+      },
+      15: {
+        onButtonDown: () => onDown("onRight"),
+        onButtonUp: () => onDown("onRightLeave"),
+      },
+    },
+    behaviour
+  );
+
   useEffect(() => {
     if (
       !_isEqual(axes, previousAxesState) &&
@@ -53,7 +86,7 @@ const useGamepadDirection = (config = {}, behaviour) => {
         const prevValue = previousAxesState[i];
         const isRegistered = shouldRegister(behaviour, `axes${i}`);
 
-        if (i > 1) return;
+        if (i > 1) return; // Not use right analog stick
 
         if (
           axis.positiveValue === true &&
@@ -61,17 +94,13 @@ const useGamepadDirection = (config = {}, behaviour) => {
           isRegistered
         ) {
           //Positive in
-          const functionName = `on${axis.type.positiveType}`;
-          if (config[functionName]) config[functionName]();
-          setSpam(config[functionName]);
+          onDown(`on${axis.type.positiveType}`);
         } else if (
           axis.positiveValue === false &&
           prevValue.positiveValue === true
         ) {
           //Positive out
-          const functionName = `on${axis.type.positiveType}Leave`;
-          if (config[functionName]) config[functionName]();
-          stopSpam();
+          onUp(`on${axis.type.positiveType}Leave`);
         }
         if (
           axis.negativeValue === true &&
@@ -79,17 +108,13 @@ const useGamepadDirection = (config = {}, behaviour) => {
           isRegistered
         ) {
           //Negative in
-          const functionName = `on${axis.type.negativeType}`;
-          if (config[functionName]) config[functionName]();
-          setSpam(config[functionName]);
+          onDown(`on${axis.type.negativeType}`);
         } else if (
           axis.negativeValue === false &&
           prevValue.negativeValue === true
         ) {
           //Negative out
-          const functionName = `on${axis.type.negativeType}Leave`;
-          if (config[functionName]) config[functionName]();
-          stopSpam();
+          onUp(`on${axis.type.negativeType}Leave`);
         }
       });
     }

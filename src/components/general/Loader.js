@@ -6,7 +6,7 @@ import { ArrowBack } from "assets/icons";
 const Loader = ({ isLoading, canGoBack, goBack }) => {
   return (
     <div className={`page-loader ${isLoading ? "active" : ""}`}>
-      <div class="lds-ripple">
+      <div className="lds-ripple">
         <div></div>
         <div></div>
       </div>

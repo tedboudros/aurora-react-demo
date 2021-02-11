@@ -6,15 +6,6 @@ import useSoundEffect from "hooks/useSoundEffect";
 
 import Button from "../Button";
 
-const ListItem = ({ item, isActive }) => {
-  return (
-    <div className={`list-item${isActive ? " active" : ""}`}>
-      <item.icon size={20} />
-      <span className="list-item__title">{item.title}</span>
-    </div>
-  );
-};
-
 const List = ({ items, behaviour }) => {
   const [activeItem, setActiveItem] = useState(0);
   const playSoundEffect = useSoundEffect("tap");
@@ -42,20 +33,18 @@ const List = ({ items, behaviour }) => {
   return (
     <div className="list">
       {items.map((item, i) => (
-        <>
-          <Button
-            text={item.title}
-            Icon={item.icon}
-            button="A"
-            onPress={() =>
-              item.onPress && i === activeItem ? item.onPress() : null
-            }
-            highlighted={i === activeItem}
-            list
-            behaviour="drawer"
-            className="mb-2"
-          />
-        </>
+        <Button
+          key={i}
+          text={item.title}
+          Icon={item.icon}
+          button="A"
+          onPress={item.onPress}
+          highlighted={i === activeItem}
+          list
+          disabled={!(item.onPress && i === activeItem)}
+          behaviour="drawer"
+          className="mb-2"
+        />
       ))}
     </div>
   );
