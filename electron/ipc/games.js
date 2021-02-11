@@ -15,9 +15,10 @@ const filterOutBadGames = (games) => {
   return games.filter((game) => (!game ? false : Object.keys(game).length));
 };
 
-module.exports = (db) => {
+module.exports = (db, win) => {
   ipcMain.on(ipcTypes.START_STEAM_GAME.REQ, (_, arg) => {
     startSteamGame(arg);
+    win.blur();
   });
 
   ipcMain.on(ipcTypes.GET_APPS.REQ, (event) => {
