@@ -4,14 +4,18 @@ import HomeScreen from "pages/home-screen";
 import { GamepadsProvider } from "contexts/GamepadsContext";
 import Development from "components/utils/Development";
 
-import * as homeActions from "store/apps/actions";
+import * as appActions from "store/apps/actions";
 import useActions from "hooks/useActions";
 
 const App = () => {
-  const [getSteamGames] = useActions([homeActions.getSteamGames]);
+  const [getSteamGames, getIsDev] = useActions([
+    appActions.getSteamGames,
+    appActions.getIsDev,
+  ]);
 
   useEffect(() => {
     getSteamGames();
+    getIsDev();
   }, []);
 
   return (

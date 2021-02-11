@@ -28,6 +28,11 @@ export const selectSteamGames = createSelector(
   (state) => state.steamGames
 );
 
+export const selectIsDev = createSelector(
+  selectHomeState,
+  (state) => state.isDev
+);
+
 export const selectActiveGameTitle = createSelector(selectHomeState, (state) =>
   state.steamGames && state.steamGames.length && state.activeGame !== null
     ? state.steamGames[state.activeGame].name

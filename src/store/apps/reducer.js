@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   isAppLoading: false,
   areAppsFetching: true,
   steamGames: [],
+  isDev: false,
 };
 
 export default (state = INITIAL_STATE, { payload, type }) => {
@@ -19,6 +20,12 @@ export default (state = INITIAL_STATE, { payload, type }) => {
       return {
         ...state,
         areAppsFetching: payload,
+      };
+
+    case TYPES.GET_IS_DEV:
+      return {
+        ...state,
+        isDev: payload,
       };
 
     case TYPES.SET_IS_APP_LOADING:

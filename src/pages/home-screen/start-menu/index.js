@@ -7,12 +7,12 @@ import { Close, Minimize } from "assets/icons";
 import List from "components/general/List";
 import useActions from "hooks/useActions";
 
-import * as homeActions from "store/apps/actions";
+import * as appActions from "store/apps/actions";
 
 const StartMenu = ({ isOpen, setIsOpen }) => {
   const [quitApp, toggleFullscreen] = useActions([
-    homeActions.quitApp,
-    homeActions.toggleFullscreen,
+    appActions.quitApp,
+    appActions.toggleFullscreen,
   ]);
 
   const listItems = [

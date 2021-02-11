@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import useGamepadButton from "hooks/useGamepadButton";
-import { openFullscreen, closeFullscreen } from "utils/fullScreen";
+
+import { useSelector } from "react-redux";
+import { selectIsDev } from "store/apps/selectors";
 
 const Development = ({ children }) => {
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
-  const toggleFullScreen = () => {
-    if (isFullScreen) closeFullscreen();
-    else openFullscreen();
-
-    setIsFullScreen(!isFullScreen);
-  };
-
   useEffect(() => {
     document.title = `Aurora v${process.env.REACT_APP_AURORA_VERSION}`;
   }, []);
+
+  const isDev = useSelector(selectIsDev);
 
   useGamepadButton(
     {
       8: {
         onButtonDown: () => {
-          document.location.reload();
+          if (isDev) document.location.reload();
         },
       },
     },

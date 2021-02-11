@@ -27,6 +27,11 @@ export const getSteamGames = () => async (dispatch) => {
   });
 };
 
+export const getIsDev = () => async (dispatch) => {
+  const isDev = await ipc(ipcTypes.GET_IS_DEV);
+  dispatch({ type: TYPES.GET_IS_DEV, payload: isDev });
+};
+
 export const startSteamGame = (appId) => async (dispatch) => {
   dispatch({ type: TYPES.START_STEAM_GAME.START, payload: appId });
   await ipc(ipcTypes.START_STEAM_GAME, appId);

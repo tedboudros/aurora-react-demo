@@ -4,14 +4,14 @@ import useGamepadDirection from "hooks/useGamepadDirection";
 import useActions from "hooks/useActions";
 import { useSelector } from "react-redux";
 
-import * as homeActions from "store/apps/actions";
+import * as appActions from "store/apps/actions";
 import { selectSteamGames } from "store/apps/selectors";
 
 import useSoundEffect from "hooks/useSoundEffect";
 
 const HomeScreenInputs = ({ children }) => {
   const [localActiveGame, setLocalActiveGame] = useState(0);
-  const [setActiveGameIndex] = useActions([homeActions.setActiveGameIndex]);
+  const [setActiveGameIndex] = useActions([appActions.setActiveGameIndex]);
   const games = useSelector(selectSteamGames);
 
   const playSoundEffect = useSoundEffect("tap");

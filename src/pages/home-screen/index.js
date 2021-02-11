@@ -5,7 +5,7 @@ import GameSlider from "components/home-page/game-slider";
 
 import Button from "components/general/Button";
 
-import * as homeActions from "store/apps/actions";
+import * as appActions from "store/apps/actions";
 import useActions from "hooks/useActions";
 
 import {
@@ -31,8 +31,8 @@ const HomeScreen = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [startSteamGame, setIsAppLoading] = useActions([
-    homeActions.startSteamGame,
-    homeActions.setIsAppLoading,
+    appActions.startSteamGame,
+    appActions.setIsAppLoading,
   ]);
 
   const isAppLoading = useSelector(selectIsAppLoading);
@@ -46,7 +46,7 @@ const HomeScreen = () => {
     setIsAppLoading(true);
 
     const interval = setInterval(async () => {
-      const isRunning = await homeActions.checkIfGameIsRunning(activeGame.id);
+      const isRunning = await appActions.checkIfGameIsRunning(activeGame.id);
 
       if (isRunning) {
         clearInterval(interval);
