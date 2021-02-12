@@ -11,7 +11,12 @@ const WelcomeScreen = () => {
 
   return (
     <div className="welcome-screen">
-      <span className="welcome-screen__title">Welcome to Aurora!</span>
+      <div className="background">
+        <div className="position-relative h-100 w-100">
+          <div className="auroral-agrabah" />
+        </div>
+      </div>
+      <span className="welcome-screen__title">Welcome to Aurora</span>
       <Button
         Icon={ArrowForward}
         text="Continue"

@@ -88,3 +88,9 @@
     }
   }
 }
+
+.light-mode {
+  .button {
+    backdrop-filter: blur(30px) brightness(1.5);
+  }
+}

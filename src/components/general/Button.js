@@ -16,6 +16,7 @@ const Button = ({
   highlighted,
   list,
   disabled,
+  onUp,
 }) => {
   const [isButtonDown, setIsButtonDown] = useState(false);
 
@@ -30,12 +31,13 @@ const Button = ({
           if (!disabled) {
             setIsButtonDown(true);
             if (!isSoundDisabled) playButtonSound();
-            if (onPress) onPress();
+            if (onPress && !onUp) onPress();
           }
         },
         onButtonUp: () => {
           if (!disabled) {
             setIsButtonDown(false);
+            if (onPress && onUp) onPress();
           }
         },
       },
