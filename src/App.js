@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 
-import HomeScreen from "pages/home-screen";
 import { GamepadsProvider } from "contexts/GamepadsContext";
 import Development from "components/utils/Development";
 
 import * as appActions from "store/apps/actions";
 import useActions from "hooks/useActions";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import routes from "routes";
 
 const App = () => {
   const [getSteamGames, getIsDev] = useActions([
@@ -21,7 +24,15 @@ const App = () => {
   return (
     <GamepadsProvider>
       <Development>
-        <HomeScreen />
+        <Router>
+          <Switch>
+            {routes.map((route) => (
+              <Route exact path={route.path}>
+                <route.component />
+              </Route>
+            ))}
+          </Switch>
+        </Router>
       </Development>
     </GamepadsProvider>
   );

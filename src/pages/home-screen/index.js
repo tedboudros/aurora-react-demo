@@ -24,8 +24,11 @@ import StartMenu from "./start-menu";
 import useSoundEffect from "hooks/useSoundEffect";
 import Loader from "components/general/Loader";
 
+import { useHistory } from "react-router-dom";
+
 const HomeScreen = () => {
   const playAppStartSound = useSoundEffect("appStart");
+  const history = useHistory();
 
   const [stateInterval, setStateInterval] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -41,7 +44,8 @@ const HomeScreen = () => {
 
   const onPressStart = () => {
     const { steamAppID } = activeGame;
-    startSteamGame(steamAppID);
+    history.push("/welcomescreen");
+    //startSteamGame(steamAppID);
     playAppStartSound();
     setIsAppLoading(true);
 

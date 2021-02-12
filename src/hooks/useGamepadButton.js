@@ -1,16 +1,23 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import _isEqual from "lodash/isEqual";
 
 import { GamepadsContext } from "contexts/GamepadsContext";
 
 import usePrevious from "hooks/usePrevious";
 
+import useActions from "hooks/useActions";
+import * as navigationActions from "store/navigation/actions";
+
 import { useSelector } from "react-redux";
+import { selectIsButtonDown } from "store/navigation/selectors";
 import { selectIsDrawerOpen } from "store/drawer/selectors";
 
 import useShouldRegister from "hooks/useShouldRegister";
 
 const useGamepadButton = (config, behaviour) => {
+  const [setIsButtonDown] = useActions([navigationActions.setIsButtonDown]);
+  const isButtonDown = useSelector(selectIsButtonDown);
+
   const {
     gamepads: { buttons },
   } = useContext(GamepadsContext);
@@ -28,13 +35,15 @@ const useGamepadButton = (config, behaviour) => {
         const prevButtonValue = isButtonPressed(previousButtonsState, button);
 
         if (buttonValue === true && prevButtonValue === false && isClickable) {
-          if (config[button] && config[button].onButtonDown)
+          if (config[button] && config[button].onButtonDown && !isButtonDown)
             config[button].onButtonDown();
+          setIsButtonDown(true);
         }
 
         if (buttonValue === false && prevButtonValue === true) {
-          if (config[button] && config[button].onButtonUp)
+          if (config[button] && config[button].onButtonUp && isButtonDown)
             config[button].onButtonUp();
+          setIsButtonDown(false);
         }
       });
     }

@@ -9,11 +9,8 @@ import { Provider } from "react-redux";
 import configureStore from "store";
 
 ReactDOM.render(
-  // {
-  //   <Renderer background={background}>}
   <Provider store={configureStore()}>
     <App />
   </Provider>,
-  //</Renderer>,
   document.getElementById("root")
 );

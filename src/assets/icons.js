@@ -1,9 +1,10 @@
-import { BiArrowBack } from "react-icons/bi";
 import { IoGameController, IoCog, IoClose } from "react-icons/io5";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FiList, FiMinimize } from "react-icons/fi";
 import { AiOutlineHome } from "react-icons/ai";
 
-export const ArrowBack = BiArrowBack;
+export const ArrowForward = IoIosArrowForward;
+export const ArrowBack = IoIosArrowBack;
 export const GameController = IoGameController;
 export const Settings = IoCog;
 export const List = FiList;
