@@ -44,7 +44,6 @@ const HomeScreen = () => {
 
   const onPressStart = () => {
     const { steamAppID } = activeGame;
-    history.push("/welcomescreen");
     //startSteamGame(steamAppID);
     playAppStartSound();
     setIsAppLoading(true);
@@ -85,7 +84,7 @@ const HomeScreen = () => {
         <div className="d-flex align-items-center">
           <Button
             onPress={onPressStart}
-            text="start"
+            text="Start"
             button="A"
             Icon={GameController}
             isSoundDisabled
@@ -95,14 +94,14 @@ const HomeScreen = () => {
         </div>
         <div className="d-flex align-items-center">
           <Button
-            text="menu"
+            text="Menu"
             Icon={Settings}
             button="start"
             className="mr-4"
             onPress={() => setIsStartMenuOpen(!isStartMenuOpen)}
           />
           <Button
-            text="details"
+            text="Details"
             Icon={List}
             button="Y"
             onPress={() => setIsDetailsModalOpen(!isDetailsModalOpen)}

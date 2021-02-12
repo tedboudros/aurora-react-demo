@@ -16,12 +16,15 @@ const WelcomeScreen = () => {
           <div className="auroral-agrabah" />
         </div>
       </div>
-      <span className="welcome-screen__title">Welcome to Aurora</span>
+      <div className="welcome-screen__title">
+        <h1>Welcome to Aurora</h1>
+        <h4>Glad to have you!</h4>
+      </div>
       <Button
         Icon={ArrowForward}
         text="Continue"
         button="A"
-        onPress={() => history.push("/")}
+        onPress={() => history.push("/home")}
         behaviour="always"
       />
     </div>

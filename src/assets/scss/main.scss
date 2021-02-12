@@ -23,6 +23,16 @@
   left: 0;
 }
 
+.route-wrapper {
+  position: relative;
+  will-change: transform;
+}
+
+.route-wrapper > div {
+  position: absolute;
+  will-change: transform;
+}
+
 * {
   z-index: 0;
 }

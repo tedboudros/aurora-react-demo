@@ -10,8 +10,11 @@
   &__title {
     font-size: 38px;
     color: $white;
-    font-weight: 300;
     top: 5rem;
     left: 5rem;
+
+    h4 {
+      font-weight: 300 !important;
+    }
   }
 }

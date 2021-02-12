@@ -40,7 +40,7 @@ const Drawer = ({ children, isOpen, setIsOpen, title, closeButton }) => {
           <div className="my-4">
             {isVisible ? (
               <Button
-                text="back"
+                text="Back"
                 Icon={ArrowBack}
                 button="B"
                 onPress={() => (isUsable ? setIsOpen(false) : null)}

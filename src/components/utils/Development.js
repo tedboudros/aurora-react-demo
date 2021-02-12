@@ -3,8 +3,11 @@ import useGamepadButton from "hooks/useGamepadButton";
 
 import { useSelector } from "react-redux";
 import { selectIsDev } from "store/apps/selectors";
+import { useHistory } from "react-router-dom";
 
 const Development = ({ children }) => {
+  const history = useHistory();
+
   useEffect(() => {
     document.title = `Aurora v${process.env.REACT_APP_AURORA_VERSION}`;
   }, []);
@@ -15,7 +18,10 @@ const Development = ({ children }) => {
     {
       8: {
         onButtonDown: () => {
-          if (isDev) document.location.reload();
+          if (isDev) {
+            history.push("/");
+            //document.location.reload();
+          }
         },
       },
     },
