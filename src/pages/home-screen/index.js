@@ -44,7 +44,7 @@ const HomeScreen = () => {
 
   const onPressStart = () => {
     const { steamAppID } = activeGame;
-    //startSteamGame(steamAppID);
+    startSteamGame(steamAppID);
     playAppStartSound();
     setIsAppLoading(true);
 

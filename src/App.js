@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { GamepadsProvider } from "contexts/GamepadsContext";
 import Development from "components/utils/Development";
@@ -10,37 +10,9 @@ import { AnimatedSwitch } from "react-router-transition";
 
 import { mapStyles, bounceTransition } from "utils/animation";
 
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 
 import routes from "routes";
-
-const RouterWrapper = () => {
-  const location = useLocation();
-
-  return (
-    <Development>
-      <AnimatedSwitch
-        atEnter={bounceTransition.atEnter}
-        atLeave={bounceTransition.atLeave}
-        atActive={bounceTransition.atActive}
-        mapStyles={mapStyles}
-        className="route-wrapper"
-        location={location}
-      >
-        {routes.map((route) => (
-          <Route exact={route.isExact} path={route.path} key={route.path}>
-            <route.component />
-          </Route>
-        ))}
-      </AnimatedSwitch>
-    </Development>
-  );
-};
 
 const App = () => {
   const [getSteamGames, getIsDev] = useActions([
@@ -56,11 +28,21 @@ const App = () => {
   return (
     <GamepadsProvider>
       <Router>
-        <Switch>
-          <Route path="*">
-            <RouterWrapper />
-          </Route>
-        </Switch>
+        <AnimatedSwitch
+          atEnter={bounceTransition.atEnter}
+          atLeave={bounceTransition.atLeave}
+          atActive={bounceTransition.atActive}
+          mapStyles={mapStyles}
+          className="route-wrapper"
+        >
+          {routes.map((route) => (
+            <Route exact={route.isExact} path={route.path} key={route.path}>
+              <Development>
+                <route.component />
+              </Development>
+            </Route>
+          ))}
+        </AnimatedSwitch>
       </Router>
     </GamepadsProvider>
   );

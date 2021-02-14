@@ -3,12 +3,12 @@ import WelcomeScreen from "pages/welcome";
 
 export default [
   {
-    path: "/home",
+    path: "/",
     component: HomeScreen,
     isExact: true,
   },
   {
-    path: "/",
+    path: "/welcome",
     component: WelcomeScreen,
     isExact: true,
   },

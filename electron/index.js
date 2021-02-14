@@ -45,9 +45,9 @@ const createWindow = async () => {
       : `file://${path.join(__dirname, "build/index.html")}`
   );
 
-  // if (isDev) {
-  win.webContents.openDevTools({ mode: "detach" });
-  // }
+  if (isDev) {
+    win.webContents.openDevTools({ mode: "detach" });
+  }
 
   const db = await initDB();
   ipcFunction(win, db);
