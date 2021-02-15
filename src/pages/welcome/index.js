@@ -24,7 +24,7 @@ const WelcomeScreen = () => {
         Icon={ArrowForward}
         text="Continue"
         button="A"
-        onPress={() => history.push("/home")}
+        onPress={() => history.push("/")}
         behaviour="always"
       />
     </div>

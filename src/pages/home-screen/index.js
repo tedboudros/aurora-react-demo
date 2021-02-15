@@ -6,7 +6,10 @@ import GameSlider from "components/home-page/game-slider";
 import Button from "components/general/Button";
 
 import * as appActions from "store/apps/actions";
+
 import useActions from "hooks/useActions";
+import useInterval from "hooks/useInterval";
+import usePrevious from "hooks/usePrevious";
 
 import {
   selectIsAppLoading,
@@ -24,13 +27,13 @@ import StartMenu from "./start-menu";
 import useSoundEffect from "hooks/useSoundEffect";
 import Loader from "components/general/Loader";
 
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const HomeScreen = () => {
   const playAppStartSound = useSoundEffect("appStart");
-  const history = useHistory();
+  // const history = useHistory();
 
-  const [stateInterval, setStateInterval] = useState(false);
+  const [isAppRunning, setIsAppRunning] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [startSteamGame, setIsAppLoading] = useActions([
@@ -42,29 +45,37 @@ const HomeScreen = () => {
   const areAppsFetching = useSelector(selectAreAppsFetching);
   const activeGame = useSelector(selectActiveGame);
 
+  const prevIsAppRunning = usePrevious(isAppRunning);
+
+  useInterval(
+    async () => {
+      console.log(isAppRunning, isAppLoading);
+
+      const isRunning = await appActions.checkIfGameIsRunning(activeGame.id);
+      setIsAppRunning(isRunning);
+
+      if (isRunning) {
+        setTimeout(() => {
+          setIsAppLoading(false);
+        }, 5000);
+      }
+
+      if (isAppRunning && !isRunning) {
+        console.log("app was open and closed just now.");
+      }
+    },
+    prevIsAppRunning && !isAppRunning ? null : 5000
+  );
+
   const onPressStart = () => {
     const { steamAppID } = activeGame;
     startSteamGame(steamAppID);
     playAppStartSound();
     setIsAppLoading(true);
-
-    const interval = setInterval(async () => {
-      const isRunning = await appActions.checkIfGameIsRunning(activeGame.id);
-
-      if (isRunning) {
-        clearInterval(interval);
-        setTimeout(() => {
-          setIsAppLoading(false);
-        }, 5000);
-      }
-    }, 5000);
-
-    setStateInterval(interval);
   };
 
   const goBack = () => {
     setIsAppLoading(false);
-    clearInterval(stateInterval);
   };
 
   const isLoading = isAppLoading || areAppsFetching;

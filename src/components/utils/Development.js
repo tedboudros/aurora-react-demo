@@ -19,8 +19,8 @@ const Development = ({ children }) => {
       8: {
         onButtonDown: () => {
           if (isDev) {
-            history.push("/");
-            //document.location.reload();
+            history.push("/welcome");
+            // document.location.reload();
           }
         },
       },
