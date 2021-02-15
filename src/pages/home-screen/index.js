@@ -108,7 +108,7 @@ const HomeScreen = () => {
             isSoundDisabled
             className="mr-4"
           />
-          <div className="game-title">{_get(activeApp, "name") || "-"}</div>
+          <div className="app-title">{_get(activeApp, "name") || "-"}</div>
         </div>
         <div className="d-flex align-items-center">
           {activeApp.id ? (
