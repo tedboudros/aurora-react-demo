@@ -5,8 +5,8 @@ import ipc from "utils/ipc";
 
 import ipcTypes from "constants/ipcTypes";
 
-export const setActiveGameIndex = (index) => (dispatch) => {
-  dispatch({ type: TYPES.SET_HOME_GAME_INDEX, payload: index });
+export const setActiveApp = (app) => (dispatch) => {
+  dispatch({ type: TYPES.SET_HOME_ACTIVE_APP, payload: app });
 };
 
 export const getSteamGames = () => async (dispatch) => {

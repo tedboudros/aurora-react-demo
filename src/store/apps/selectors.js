@@ -2,15 +2,9 @@ import { createSelector } from "reselect";
 
 const selectHomeState = (state) => state.apps;
 
-export const selectActiveGameIndex = createSelector(
+export const selectActiveApp = createSelector(
   selectHomeState,
-  (state) => state.activeGame
-);
-
-export const selectActiveGame = createSelector(selectHomeState, (state) =>
-  state.steamGames && state.steamGames.length && state.activeGame !== null
-    ? state.steamGames[state.activeGame]
-    : {}
+  (state) => state.activeApp
 );
 
 export const selectAreAppsFetching = createSelector(
@@ -31,10 +25,4 @@ export const selectSteamGames = createSelector(
 export const selectIsDev = createSelector(
   selectHomeState,
   (state) => state.isDev
-);
-
-export const selectActiveGameTitle = createSelector(selectHomeState, (state) =>
-  state.steamGames && state.steamGames.length && state.activeGame !== null
-    ? state.steamGames[state.activeGame].name
-    : ""
 );

@@ -1,7 +1,7 @@
 import TYPES from "./types";
 
 const INITIAL_STATE = {
-  activeGame: 0,
+  activeApp: 0,
   isAppLoading: false,
   areAppsFetching: true,
   steamGames: [],
@@ -10,10 +10,10 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, { payload, type }) => {
   switch (type) {
-    case TYPES.SET_HOME_GAME_INDEX:
+    case TYPES.SET_HOME_ACTIVE_APP:
       return {
         ...state,
-        activeGame: payload,
+        activeApp: payload,
       };
 
     case TYPES.SET_ARE_APPS_FETCHING:

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
-import GameTitle from "components/home-page/GameTitle";
-import GameSlider from "components/home-page/game-slider";
+import AppSlider from "components/home-page/AppSlider";
 
 import Button from "components/general/Button";
 
@@ -14,7 +12,7 @@ import usePrevious from "hooks/usePrevious";
 import {
   selectIsAppLoading,
   selectAreAppsFetching,
-  selectActiveGame,
+  selectActiveApp,
 } from "store/apps/selectors";
 import { useSelector } from "react-redux";
 
@@ -27,11 +25,15 @@ import StartMenu from "./start-menu";
 import useSoundEffect from "hooks/useSoundEffect";
 import Loader from "components/general/Loader";
 
-// import { useHistory } from "react-router-dom";
+import _get from "lodash/get";
+
+import { useHistory } from "react-router-dom";
+
+import routes from "routes";
 
 const HomeScreen = () => {
   const playAppStartSound = useSoundEffect("appStart");
-  // const history = useHistory();
+  const history = useHistory();
 
   const [isAppRunning, setIsAppRunning] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -43,15 +45,17 @@ const HomeScreen = () => {
 
   const isAppLoading = useSelector(selectIsAppLoading);
   const areAppsFetching = useSelector(selectAreAppsFetching);
-  const activeGame = useSelector(selectActiveGame);
+  const activeApp = useSelector(selectActiveApp);
 
-  const prevIsAppRunning = usePrevious(isAppRunning);
+  // const prevIsAppRunning = usePrevious(isAppRunning);
+
+  const apps = routes.filter((route) => route.isApp);
 
   useInterval(
     async () => {
-      console.log(isAppRunning, isAppLoading);
+      if (!activeApp || !activeApp.id) return;
 
-      const isRunning = await appActions.checkIfGameIsRunning(activeGame.id);
+      const isRunning = await appActions.checkIfGameIsRunning(activeApp.id);
       setIsAppRunning(isRunning);
 
       if (isRunning) {
@@ -64,14 +68,18 @@ const HomeScreen = () => {
         console.log("app was open and closed just now.");
       }
     },
-    prevIsAppRunning && !isAppRunning ? null : 5000
+    !isAppLoading ? null : 5000
   );
 
   const onPressStart = () => {
-    const { steamAppID } = activeGame;
-    startSteamGame(steamAppID);
+    const { steamAppID, isApp, path } = activeApp;
+    if (isApp) {
+      history.push(path);
+    } else {
+      startSteamGame(steamAppID);
+      setIsAppLoading(true);
+    }
     playAppStartSound();
-    setIsAppLoading(true);
   };
 
   const goBack = () => {
@@ -84,13 +92,12 @@ const HomeScreen = () => {
     <div className="home-screen">
       <Loader isLoading={isLoading} canGoBack={isAppLoading} goBack={goBack} />
       <div className="home-screen__background--container">
-        <div className="home-screen__background">
-          <div className="auroral-agraba" />
-          <div className="auroral-stars"></div>
-        </div>
+        <div className="auroral-northern-intense" />
+        <div className="auroral-stars"></div>
+        <div className="home-screen__background"></div>
       </div>
       <HomeHeader />
-      <GameSlider />
+      <AppSlider stockApps={apps} />
       <div className="home-screen__buttons">
         <div className="d-flex align-items-center">
           <Button
@@ -101,21 +108,23 @@ const HomeScreen = () => {
             isSoundDisabled
             className="mr-4"
           />
-          <GameTitle />
+          <div className="game-title">{_get(activeApp, "name") || "-"}</div>
         </div>
         <div className="d-flex align-items-center">
+          {activeApp.id ? (
+            <Button
+              text="Details"
+              Icon={List}
+              button="Y"
+              className="mr-4"
+              onPress={() => setIsDetailsModalOpen(!isDetailsModalOpen)}
+            />
+          ) : null}
           <Button
             text="Menu"
             Icon={Settings}
             button="start"
-            className="mr-4"
             onPress={() => setIsStartMenuOpen(!isStartMenuOpen)}
-          />
-          <Button
-            text="Details"
-            Icon={List}
-            button="Y"
-            onPress={() => setIsDetailsModalOpen(!isDetailsModalOpen)}
           />
         </div>
         <DetailsModal

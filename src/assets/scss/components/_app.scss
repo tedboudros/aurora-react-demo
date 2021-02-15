@@ -7,14 +7,17 @@
   }
 }
 
-.game {
+.app {
   width: 8rem;
   height: 8rem;
   border-radius: 25px;
   margin: 0 0.75rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 0, 0.3);
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
   transition: 0.1s ease-in-out;
   background-size: auto 105%;
   background-position: center;

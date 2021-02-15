@@ -3,17 +3,18 @@ import React from "react";
 import Drawer from "components/general/Drawer";
 import InfoCard from "components/general/InfoCard";
 
-import { selectActiveGame } from "store/apps/selectors";
+import { selectActiveApp } from "store/apps/selectors";
 import { useSelector } from "react-redux";
 
 import config from "./config";
 
 const DetailsModal = ({ isOpen, setIsOpen }) => {
-  const activeGame = useSelector(selectActiveGame);
+  const activeApp = useSelector(selectActiveApp);
+  if (!activeApp) return null;
 
-  const isActiveGameValid = Object.keys(activeGame).length;
+  const isActiveGameValid = Object.keys(activeApp).length;
 
-  const activeContent = config(isActiveGameValid ? activeGame : null);
+  const activeContent = config(isActiveGameValid ? activeApp : null);
 
   return isActiveGameValid ? (
     <Drawer
