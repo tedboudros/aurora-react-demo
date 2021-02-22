@@ -37,9 +37,11 @@ const App = () => {
         >
           {routes.map((route) => (
             <Route exact={route.isExact} path={route.path} key={route.path}>
-              <Development>
-                <route.component />
-              </Development>
+              <div className="page">
+                <Development>
+                  <route.component />
+                </Development>
+              </div>
             </Route>
           ))}
         </AnimatedSwitch>

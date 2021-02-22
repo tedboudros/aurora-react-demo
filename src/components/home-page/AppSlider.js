@@ -45,9 +45,9 @@ const AppSlider = ({ stockApps }) => {
   });
 
   return (
-    <div className="game-slider">
+    <div className="app-slider">
       <div
-        className="game-slider__menu"
+        className="app-slider__menu"
         style={{ transform: `translateX(-${activeAppIndex * 9.5}rem)` }}
       >
         {allApps.map((app, i) => (
