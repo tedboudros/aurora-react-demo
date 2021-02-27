@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "components/general/Button";
 import List from "components/general/List";
 
-import { ArrowBack, Minimize, Close } from "assets/icons";
+import { ArrowBack, Info, Close } from "assets/icons";
 
 import { useHistory } from "react-router-dom";
 
 import { Row, Col } from "reactstrap";
 
+const settingsPanels = {
+  about: {
+    component: () => "hello",
+    icon: Close,
+    title: "",
+  },
+};
+
 const Settings = () => {
   const history = useHistory();
 
   const listItems = [
-    { icon: Minimize, title: "Toggle fullscreen", onPress: () => null },
-    { icon: Close, title: "Quit", onPress: () => null },
+    { icon: Info, title: "About Aurora", onPress: () => null },
+    {
+      icon: Close,
+      title: "Restore Aurora settings to defaults",
+      onPress: () => null,
+    },
   ];
 
   return (

@@ -6,10 +6,7 @@ import Development from "components/utils/Development";
 import * as appActions from "store/apps/actions";
 import useActions from "hooks/useActions";
 
-import { AnimatedSwitch } from "react-router-transition";
-
-import { mapStyles, bounceTransition } from "utils/animation";
-
+import { CSSTransition } from "react-transition-group";
 import { HashRouter as Router, Route } from "react-router-dom";
 
 import routes from "routes";
@@ -28,23 +25,24 @@ const App = () => {
   return (
     <GamepadsProvider>
       <Router>
-        <AnimatedSwitch
-          atEnter={bounceTransition.atEnter}
-          atLeave={bounceTransition.atLeave}
-          atActive={bounceTransition.atActive}
-          mapStyles={mapStyles}
-          className="route-wrapper"
-        >
-          {routes.map((route) => (
-            <Route exact={route.isExact} path={route.path} key={route.path}>
-              <div className="page">
-                <Development>
-                  <route.component />
-                </Development>
-              </div>
-            </Route>
-          ))}
-        </AnimatedSwitch>
+        {routes.map((route) => (
+          <Route exact={route.isExact} path={route.path} key={route.path}>
+            {({ match }) => (
+              <CSSTransition
+                in={match != null}
+                timeout={300}
+                classNames="page"
+                unmountOnExit
+              >
+                <div className="page">
+                  <Development>
+                    <route.component />
+                  </Development>
+                </div>
+              </CSSTransition>
+            )}
+          </Route>
+        ))}
       </Router>
     </GamepadsProvider>
   );

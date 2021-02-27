@@ -8,8 +8,8 @@ import useShouldRegister from "hooks/useShouldRegister";
 import useGamepadButton from "hooks/useGamepadButton";
 
 // in ms
-const spamTimeout = 150;
-const spamInterval = 100;
+const spamTimeout = 400;
+const spamInterval = 125;
 
 const useGamepadDirection = (config = {}, behaviour) => {
   const {

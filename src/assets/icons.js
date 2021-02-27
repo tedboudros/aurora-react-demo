@@ -2,6 +2,7 @@ import { IoGameController, IoCog, IoClose } from "react-icons/io5";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { FiList, FiMinimize } from "react-icons/fi";
 import { AiOutlineHome } from "react-icons/ai";
+import { VscInfo } from "react-icons/vsc";
 
 export const ArrowForward = IoIosArrowForward;
 export const ArrowBack = IoIosArrowBack;
@@ -11,3 +12,4 @@ export const List = FiList;
 export const Minimize = FiMinimize;
 export const Close = IoClose;
 export const Home = AiOutlineHome;
+export const Info = VscInfo;

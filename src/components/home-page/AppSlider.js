@@ -9,11 +9,15 @@ import useGamepadDirection from "hooks/useGamepadDirection";
 import useSoundEffect from "hooks/useSoundEffect";
 
 import useActions from "hooks/useActions";
+import usePrevious from "hooks/usePrevious";
+
 import * as homeActions from "store/apps/actions";
 
 const AppSlider = ({ stockApps }) => {
   const [activeAppIndex, setActiveAppIndex] = useState(0);
   const [setActiveApp] = useActions([homeActions.setActiveApp]);
+
+  const prevActiveAppIndex = usePrevious(activeAppIndex);
 
   const games = useSelector(selectSteamGames);
 
@@ -21,15 +25,18 @@ const AppSlider = ({ stockApps }) => {
 
   const playSoundEffect = useSoundEffect("tap");
 
+  useEffect(() => {
+    if (prevActiveAppIndex !== activeAppIndex) {
+      playSoundEffect();
+      setActiveApp(allApps[activeAppIndex]);
+    }
+  }, [activeAppIndex]);
+
   const addTocurrentActiveIndex = (value = 1) => {
     setActiveAppIndex((oldValue) => {
       const newValue = oldValue + value;
 
-      if (!(newValue < 0 || newValue === allApps.length)) {
-        playSoundEffect();
-        setActiveApp(allApps[newValue]);
-        return newValue;
-      }
+      if (!(newValue < 0 || newValue === allApps.length)) return newValue;
 
       return oldValue;
     });

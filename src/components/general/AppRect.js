@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-const AppRect = ({ isActive = false, app }) => {
+const AppRect = memo(({ isActive = false, app }) => {
   return (
     <div className="app--container">
       <div
@@ -11,6 +11,6 @@ const AppRect = ({ isActive = false, app }) => {
       </div>
     </div>
   );
-};
+});
 
 export default AppRect;

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 
 import Button from "./Button";
 import { ArrowBack } from "assets/icons";
 
-const Loader = ({ isLoading, canGoBack, goBack }) => {
+const Loader = memo(({ isLoading, canGoBack, goBack }) => {
   return (
     <div className={`page-loader ${isLoading ? "active" : ""}`}>
       <div className="lds-ripple">
@@ -28,6 +28,6 @@ const Loader = ({ isLoading, canGoBack, goBack }) => {
       ) : null}
     </div>
   );
-};
+});
 
 export default Loader;

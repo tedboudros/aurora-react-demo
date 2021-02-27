@@ -88,6 +88,8 @@ const HomeScreen = () => {
 
   const isLoading = isAppLoading || areAppsFetching;
 
+  console.log("rerendering");
+
   return (
     <div className="home-screen">
       <Loader isLoading={isLoading} canGoBack={isAppLoading} goBack={goBack} />
